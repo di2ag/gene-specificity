@@ -1,0 +1,67 @@
+<h1 align="center">&lt;Enter Project Name Here&gt;</h1>
+<br>
+
+<h2 align="center"><Project Description></h2>
+  <p align="left">&lt;Enter Project Description Here&gt;</p>
+<br>
+
+<h2 align="center">Trapi Transaction</h2>
+<hr>
+  <p>Example of the Trapi Query, Response, and Meta Knowledge Graph Objects</p>
+  
+  <h3>Query</h3>
+  <p>&lt;Enter Query Example Here&gt;</p>
+  
+  <h3>Response</h3>
+  <p>&lt;Enter Response Example Here&gt;</p>
+
+  <h3>Meta Knowledge Graph</h3>
+  <p>&lt;Enter Meta Knowledge Graph Example Here&gt;</p>
+
+<h2 align="center">References</h2>
+<hr>
+<!-- list all references used to collect the data hosted in this app -->
+<ul>
+  <li>
+    <!-- if applicable, create a link to the resource like so -->
+    <div>
+      <div style="display: flex">
+        <b>Name: </b>
+        <!-- the reference name as a hyperlink -->
+        <a href=www.examples.com>example</a>
+      </div>
+      <!-- this div block is the description of a reference -->
+      <div style="display: flex">
+        <!-- prefeix to a description -->
+        <b>Description: </b>
+        <!-- the description as a paragraph element -->
+        <!-- enter your description inside of the <p></p> tags -->
+        <p>&lt;Enter Reference Description Here&gt;</p>
+      </div>
+    </div>
+<!--   
+comment  
+spacing
+-->
+    <!-- If a reference cannot be linked, use this template -->
+    <div>
+      <!-- the prefix to a reference name -->
+      <div style="display: flex">
+        <!-- the prefix to a reference name. don't edit -->
+        <b>Name: </b>
+        <!-- the name of a reference. edit this -->
+        <p> Example Reference </p>
+      </div>
+    </div>
+    <div style="display: flex">
+      <b>Description: </b>
+      <p>&lt;Enter Reference Description Here&gt;</p>
+    </div>
+  </li>
+</ul>
+
+<style>
+  .reference-with-link{
+
+  }
+</style>
