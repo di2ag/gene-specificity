@@ -7,7 +7,7 @@ ENTER APP DESCRIPTION HERE
 Example of the Trapi Query, Response, and Meta Knowledge Graph Objects
 ### Query
 <!-- create a query example for every supported query type in the meta knowledge graph for this app -->
-```json
+```jsonc
 // query object
 // reference: https://tinyurl.com/2mcnmmzj
 {
