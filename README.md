@@ -379,7 +379,7 @@ Examples of the Trapi Query, Response, and Meta Knowledge Graph Objects that thi
 ### Example Reference 1
   <!-- use \ to indicate a linebreak -->
   <!-- link to the reference website -->
-  Link: [<ADD LINK TO REFERENCE HERE\>](www.example.com)\
+  Link: [<ADD LINK TO REFERENCE HERE\>](https://www.example.com)\
   Description: <ADD DESCRIPTION FOR REFERENCE 2 HERE>
 
 ### Example Reference 2
