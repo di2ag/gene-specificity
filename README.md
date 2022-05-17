@@ -6,10 +6,11 @@ ENTER APP DESCRIPTION HERE
 
 Example of the Trapi Query, Response, and Meta Knowledge Graph Objects
 ### Query
-<!-- create a query example for every supported query type in the meta knowledge graph for this app -->
-```jsonc
-// query object
-// reference: https://tinyurl.com/2mcnmmzj
+<!-- 
+  create a query example for every supported query type in the meta knowledge graph for this app
+  reference: https://github.com/NCATSTranslator/ReasonerAPI/blob/master/docs/reference.md#query-
+  -->
+```json
 {
   "message": {
     "query_graph": {
@@ -18,41 +19,77 @@ Example of the Trapi Query, Response, and Meta Knowledge Graph Objects
           "ids": [],
           "categories": [],
           "is_set": false,
-          "constraints"[]
+          "constraints": []
         },
         "n0": {
           "ids": [],
           "categories": [],
           "is_set": false,
-          "constraints"[]
+          "constraints": []
         }
       },
       "edges": {
         "e0": {
-          "predicates": [
-          ],
+          "predicates": [],
           "subject": "n0",
           "object": "n1",
-          "constraints": [
-          ]
+          "constraints": []
         }
       }
-    }
+    },
+    "knowledge_graph": {},
+    "results": {}
   }
 }
 ```
 
 ### Response
+<!-- 
+  create a response example for every supported query type in the meta knowledge graph for this app
+  reference: https://github.com/NCATSTranslator/ReasonerAPI/blob/master/docs/reference.md#response-
+ -->
 ```json
 {
-  
+  "message": {
+    "query_graph": {
+      "nodes": {
+        "n0": {
+          "ids": [],
+          "categories": [],
+          "is_set": false,
+          "constraints": []
+        },
+        "n0": {
+          "ids": [],
+          "categories": [],
+          "is_set": false,
+          "constraints": []
+        }
+      },
+      "edges": {
+        "e0": {
+          "predicates": [],
+          "subject": "n0",
+          "object": "n1",
+          "constraints": []
+        }
+      }
+    },
+    "knowledge_graph": {},
+    "results": {}
+  }
 }
 ```
 
 ### Meta Knowledge Graph
 ```json
 {
-  
+  "nodes": [
+    
+  ],
+  "edges": [
+
+  ]
 }
 ```
 
