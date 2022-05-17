@@ -1,5 +1,5 @@
-# <ENTER APP NAME HERE\>
-<ENTER APP DESCRIPTION HERE\>
+# <ADD APP NAME HERE\>
+<ADD APP DESCRIPTION HERE\>
 
 ## Trapi Transaction
 Examples of the Trapi Query, Response, and Meta Knowledge Graph Objects that this app supports.
@@ -53,29 +53,111 @@ Examples of the Trapi Query, Response, and Meta Knowledge Graph Objects that thi
     "query_graph": {
       "nodes": {
         "n0": {
-          "ids": [],
-          "categories": [],
+          "ids": [
+            "<ADD BIOLINK CURIE HERE>",
+            "<ADD BIOLINK CURIE HERE>"
+          ],
+          "categories": [
+            "<ADD BIOLINK ENTITY TYPE HERE>",
+            "<ADD BIOLINK ENTITY TYPE HERE>"
+          ],
           "is_set": false,
-          "constraints": []
+          "constraints": [
+            {
+              "id": "<ADD BIOLINK CURIE HERE>",
+              "name": "<ADD HUMAN READABLE NAME FOR THE ID HERE>",
+              "not": false,
+              "operator": "<ADD AN OPERATOR HERE>",
+              "value": [
+                "<ADD ATTRIBUTE VALUE HERE>",
+                "<ADD ATTRIBUTE VALUE HERE>"
+              ],
+              "unit_id": [
+                "<ADD UNIT_ID FOR VALUE FIELD HERE>",
+                "<ADD UNIT_ID FOR VALUE FIELD HERE>"
+              ],
+              "unit_name": [
+                "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>",
+                "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>"
+              ]
+            }
+          ]
         },
         "n0": {
-          "ids": [],
-          "categories": [],
+          "ids": [
+            "<ADD BIOLINK CURIE HERE>",
+            "<ADD BIOLINK CURIE HERE>"
+          ],
+          "categories": [
+            "<ADD BIOLINK ENTITY TYPE HERE>",
+            "<ADD BIOLINK ENTITY TYPE HERE>"
+          ],
           "is_set": false,
-          "constraints": []
+          "constraints": [
+            {
+              "id": "<ADD BIOLINK CURIE HERE>",
+              "name": "<ADD HUMAN READABLE NAME FOR THE ID HERE>",
+              "not": false,
+              "operator": "<ADD AN OPERATOR HERE>",
+              "value": [
+                "<ADD ATTRIBUTE VALUE HERE>",
+                "<ADD ATTRIBUTE VALUE HERE>"
+              ],
+              "unit_id": [
+                "<ADD UNIT_ID FOR VALUE FIELD HERE>",
+                "<ADD UNIT_ID FOR VALUE FIELD HERE>"
+              ],
+              "unit_name": [
+                "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>",
+                "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>"
+              ]
+            }
+          ]
         }
       },
       "edges": {
         "e0": {
-          "predicates": [],
+          "predicates": [
+            "<ADD BIOLINK PREDICATE HERE>",
+            "<ADD BIOLINK PREDICATE HERE>"
+          ],
           "subject": "n0",
           "object": "n1",
-          "constraints": []
+          "constraints": [
+            {
+              "id": "<ADD BIOLINK CURIE HERE>",
+              "name": "<ADD HUMAN READABLE NAME FOR THE ID HERE>",
+              "not": false,
+              "operator": "<ADD AN OPERATOR HERE>",
+              "value": [
+                "<ADD ATTRIBUTE VALUE HERE>",
+                "<ADD ATTRIBUTE VALUE HERE>"
+              ],
+              "unit_id": [
+                "<ADD UNIT_ID FOR VALUE FIELD HERE>",
+                "<ADD UNIT_ID FOR VALUE FIELD HERE>"
+              ],
+              "unit_name": [
+                "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>",
+                "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>"
+              ]
+            }
+          ]
         }
       }
     },
-    "knowledge_graph": {},
-    "results": {}
+    "knowledge_graph": {
+      "nodes": {
+        "name": "<ADD BIOLINK ENTITY NAME HERE>",
+        "categories": [
+          "<ADD BIOLINK ENTITY TYPE HERE>"
+        ],
+        "attributes": []
+      }
+    },
+    "results": {
+      
+    }
   }
 }
 ```
@@ -88,10 +170,18 @@ Examples of the Trapi Query, Response, and Meta Knowledge Graph Objects that thi
 ```json
 {
   "nodes": [
-
+    {
+      "<ADD BIOLINK ENTITY HERE>": {
+        "id_prefixes":[]
+      },
+    }
   ],
   "edges": [
-
+    {
+      "subject": "<ADD SUBJECT CATEGORY HERE>",
+      "object": "<ADD OBJECT CATEGORY HERE",
+      "predicate": "<ADD PREDICATE HERE>"
+    }
   ]
 }
 ```
@@ -101,10 +191,10 @@ Examples of the Trapi Query, Response, and Meta Knowledge Graph Objects that thi
   <!-- use \ to indicate a linebreak -->
   <!-- link to the reference website -->
   Link: [<ADD LINK TO REFERENCE HERE\>](www.example.com)\
-  Description: <ENTER DESCRIPTION FOR REFERENCE 2 HERE>
+  Description: <ADD DESCRIPTION FOR REFERENCE 2 HERE>
 
 ### Example Reference 2
   <!-- use \ to indicate a linebreak -->
   <!-- if no website is available to link to, just name it like so -->
-  Name: <SOME REFERENCE WITH NO WEBSITE\>\
-  Description: <ENTER DESCRIPTION FOR REFERENCE 2 HERE>
+  Name: <ADD REFERENCE WITH NO WEBSITE\>\
+  Description: <ADD DESCRIPTION FOR REFERENCE 2 HERE>
