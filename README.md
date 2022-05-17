@@ -10,7 +10,7 @@ Examples of the Trapi Query, Response, and Meta Knowledge Graph Objects that thi
   reference: https://github.com/NCATSTranslator/ReasonerAPI/blob/master/docs/reference.md#query-
   -->
 <details>
-  <summary> Click to expand view json</summary>
+  <summary> Click to view json</summary>
 ```json
 {
   "message": {
@@ -122,6 +122,8 @@ Examples of the Trapi Query, Response, and Meta Knowledge Graph Objects that thi
   create a response example for every supported query type in the meta knowledge graph for this app
   reference: https://github.com/NCATSTranslator/ReasonerAPI/blob/master/docs/reference.md#response-
  -->
+<details>
+  <summary> click to view json example </summary>
 ```json
 {
   "message": {
@@ -314,12 +316,15 @@ Examples of the Trapi Query, Response, and Meta Knowledge Graph Objects that thi
   ]
 }
 ```
+</details>
 
 ### Meta Knowledge Graph
 <!-- 
   create a meta knowledge graph example the app
   reference: https://github.com/NCATSTranslator/ReasonerAPI/blob/master/docs/reference.md#response-
  -->
+<details>
+  <summary> Click to view json example </summary>
 ```json
 {
   "nodes": [
@@ -365,6 +370,7 @@ Examples of the Trapi Query, Response, and Meta Knowledge Graph Objects that thi
   ]
 }
 ```
+</details>
 
 ## References
 ### Example Reference 1
