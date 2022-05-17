@@ -11,110 +11,111 @@ Examples of the Trapi Query, Response, and Meta Knowledge Graph Objects that thi
   -->
 <details>
   <summary> Click to view json</summary>
-```json
-{
-  "message": {
-    "query_graph": {
-      "nodes": {
-        "n0": {
-          "ids": [
-            "<ADD BIOLINK CURIE HERE>",
-            "<ADD BIOLINK CURIE HERE>"
-          ],
-          "categories": [
-            "<ADD BIOLINK ENTITY TYPE HERE>",
-            "<ADD BIOLINK ENTITY TYPE HERE>"
-          ],
-          "is_set": <add boolean here>,
-          "constraints": [
-            {
-              "id": "<ADD BIOLINK CURIE HERE>",
-              "name": "<ADD HUMAN READABLE NAME FOR THE ID HERE>",
-              "not": <add boolean here>,
-              "operator": "<ADD AN OPERATOR HERE>",
-              "value": [
-                "<ADD ATTRIBUTE VALUE HERE>",
-                "<ADD ATTRIBUTE VALUE HERE>"
-              ],
-              "unit_id": [
-                "<ADD UNIT_ID FOR VALUE FIELD HERE>",
-                "<ADD UNIT_ID FOR VALUE FIELD HERE>"
-              ],
-              "unit_name": [
-                "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>",
-                "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>"
-              ]
-            }
-          ]
+
+  ```json
+  {
+    "message": {
+      "query_graph": {
+        "nodes": {
+          "n0": {
+            "ids": [
+              "<ADD BIOLINK CURIE HERE>",
+              "<ADD BIOLINK CURIE HERE>"
+            ],
+            "categories": [
+              "<ADD BIOLINK ENTITY TYPE HERE>",
+              "<ADD BIOLINK ENTITY TYPE HERE>"
+            ],
+            "is_set": <add boolean here>,
+            "constraints": [
+              {
+                "id": "<ADD BIOLINK CURIE HERE>",
+                "name": "<ADD HUMAN READABLE NAME FOR THE ID HERE>",
+                "not": <add boolean here>,
+                "operator": "<ADD AN OPERATOR HERE>",
+                "value": [
+                  "<ADD ATTRIBUTE VALUE HERE>",
+                  "<ADD ATTRIBUTE VALUE HERE>"
+                ],
+                "unit_id": [
+                  "<ADD UNIT_ID FOR VALUE FIELD HERE>",
+                  "<ADD UNIT_ID FOR VALUE FIELD HERE>"
+                ],
+                "unit_name": [
+                  "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>",
+                  "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>"
+                ]
+              }
+            ]
+          },
+          "n1": {
+            "ids": [
+              "<ADD BIOLINK CURIE HERE>",
+              "<ADD BIOLINK CURIE HERE>"
+            ],
+            "categories": [
+              "<ADD BIOLINK ENTITY TYPE HERE>",
+              "<ADD BIOLINK ENTITY TYPE HERE>"
+            ],
+            "is_set": <add boolean here>,
+            "constraints": [
+              {
+                "id": "<ADD BIOLINK CURIE HERE>",
+                "name": "<ADD HUMAN READABLE NAME FOR THE ID HERE>",
+                "not": <add boolean here>,
+                "operator": "<ADD AN OPERATOR HERE>",
+                "value": [
+                  "<ADD ATTRIBUTE VALUE HERE>",
+                  "<ADD ATTRIBUTE VALUE HERE>"
+                ],
+                "unit_id": [
+                  "<ADD UNIT_ID FOR VALUE FIELD HERE>",
+                  "<ADD UNIT_ID FOR VALUE FIELD HERE>"
+                ],
+                "unit_name": [
+                  "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>",
+                  "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>"
+                ]
+              }
+            ]
+          },
         },
-        "n1": {
-          "ids": [
-            "<ADD BIOLINK CURIE HERE>",
-            "<ADD BIOLINK CURIE HERE>"
-          ],
-          "categories": [
-            "<ADD BIOLINK ENTITY TYPE HERE>",
-            "<ADD BIOLINK ENTITY TYPE HERE>"
-          ],
-          "is_set": <add boolean here>,
-          "constraints": [
-            {
-              "id": "<ADD BIOLINK CURIE HERE>",
-              "name": "<ADD HUMAN READABLE NAME FOR THE ID HERE>",
-              "not": <add boolean here>,
-              "operator": "<ADD AN OPERATOR HERE>",
-              "value": [
-                "<ADD ATTRIBUTE VALUE HERE>",
-                "<ADD ATTRIBUTE VALUE HERE>"
-              ],
-              "unit_id": [
-                "<ADD UNIT_ID FOR VALUE FIELD HERE>",
-                "<ADD UNIT_ID FOR VALUE FIELD HERE>"
-              ],
-              "unit_name": [
-                "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>",
-                "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>"
-              ]
-            }
-          ]
-        },
-      },
-      "edges": {
-        "e0": {
-          "predicates": [
-            "<ADD BIOLINK PREDICATE HERE>",
-            "<ADD BIOLINK PREDICATE HERE>"
-          ],
-          "subject": "n0",
-          "object": "n1",
-          "constraints": [
-            {
-              "id": "<ADD BIOLINK CURIE HERE>",
-              "name": "<ADD HUMAN READABLE NAME FOR THE ID HERE>",
-              "not": false,
-              "operator": "<ADD AN OPERATOR HERE>",
-              "value": [
-                "<ADD ATTRIBUTE VALUE HERE>",
-                "<ADD ATTRIBUTE VALUE HERE>"
-              ],
-              "unit_id": [
-                "<ADD UNIT_ID FOR VALUE FIELD HERE>",
-                "<ADD UNIT_ID FOR VALUE FIELD HERE>"
-              ],
-              "unit_name": [
-                "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>",
-                "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>"
-              ]
-            }
-          ]
+        "edges": {
+          "e0": {
+            "predicates": [
+              "<ADD BIOLINK PREDICATE HERE>",
+              "<ADD BIOLINK PREDICATE HERE>"
+            ],
+            "subject": "n0",
+            "object": "n1",
+            "constraints": [
+              {
+                "id": "<ADD BIOLINK CURIE HERE>",
+                "name": "<ADD HUMAN READABLE NAME FOR THE ID HERE>",
+                "not": false,
+                "operator": "<ADD AN OPERATOR HERE>",
+                "value": [
+                  "<ADD ATTRIBUTE VALUE HERE>",
+                  "<ADD ATTRIBUTE VALUE HERE>"
+                ],
+                "unit_id": [
+                  "<ADD UNIT_ID FOR VALUE FIELD HERE>",
+                  "<ADD UNIT_ID FOR VALUE FIELD HERE>"
+                ],
+                "unit_name": [
+                  "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>",
+                  "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>"
+                ]
+              }
+            ]
+          }
         }
-      }
-    },
-    "knowledge_graph": {},
-    "results": {}
+      },
+      "knowledge_graph": {},
+      "results": {}
+    }
   }
-}
-```
+  ```
 </details>
 
 ### Response
@@ -124,6 +125,7 @@ Examples of the Trapi Query, Response, and Meta Knowledge Graph Objects that thi
  -->
 <details>
   <summary> click to view json example </summary>
+
 ```json
 {
   "message": {
@@ -325,6 +327,7 @@ Examples of the Trapi Query, Response, and Meta Knowledge Graph Objects that thi
  -->
 <details>
   <summary> Click to view json example </summary>
+
 ```json
 {
   "nodes": [
