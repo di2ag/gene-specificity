@@ -1,4 +1,4 @@
-# Enter APP Name Here
+# ENTER APP NAME HERE
 ENTER APP DESCRIPTION HERE
 
 ## Trapi Transaction
