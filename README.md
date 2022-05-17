@@ -20,33 +20,37 @@ Example of the Trapi Query, Response, and Meta Knowledge Graph Objects
       // nodes field
       // reference: https://github.com/NCATSTranslator/ReasonerAPI/blob/master/docs/reference.md#fixed-fields-9
       "nodes": {
-        // subject node subject node object
+        // subject node
         // reference: https://github.com/NCATSTranslator/ReasonerAPI/blob/master/docs/reference.md#qnode-
         "n0": {
-          // biolink concept identifier
+          // biolink curie identifier
+          // reference: https://github.com/NCATSTranslator/ReasonerAPI/blob/master/docs/reference.md#curie-
+          "ids": [],
+          // biolink category types
+          // reference: https://github.com/NCATSTranslator/ReasonerAPI/blob/master/docs/reference.md#biolinkentity-
+          "categories": [],
+          // indicates that this QNode MAY have multiple KnowledgeGraph Nodes bound to it within each Result
           // reference: https://github.com/NCATSTranslator/ReasonerAPI/blob/master/docs/reference.md#fixed-fields-10
-          "ids"[
-            "<enter an example id here>"
-          ],
-          // biolink concept type
-          "categories": [
-            "<enter biolink category here>"
-          ]
-        },
-        // object node for <enter biolink type here>
-        "n1": {
-          // biolink concept identifiers
-          "ids": [
-            "<enter an example id here>"
-          ],
-          // biolink concept types
-          "categories": [
-            // < enter category types here>
-          ],
-          // indicates that this query node MAY have multiple KnowledgeGraph Nodes bound to it within each Result.
           "is_set": false,
-          // a list of constraints applied to a query node 
-          "constraints": [],
+          // A list of contraints applied to a query node
+          // reference: https://github.com/NCATSTranslator/ReasonerAPI/blob/master/docs/reference.md#queryconstraint-
+          "constraints"[]
+        },
+        // object node
+        // reference: https://github.com/NCATSTranslator/ReasonerAPI/blob/master/docs/reference.md#qnode-
+        "n0": {
+          // biolink curie identifier
+          // reference: https://github.com/NCATSTranslator/ReasonerAPI/blob/master/docs/reference.md#curie-
+          "ids": [],
+          // biolink category types
+          // reference: https://github.com/NCATSTranslator/ReasonerAPI/blob/master/docs/reference.md#biolinkentity-
+          "categories": [],
+          // indicates that this QNode MAY have multiple KnowledgeGraph Nodes bound to it within each Result
+          // reference: https://github.com/NCATSTranslator/ReasonerAPI/blob/master/docs/reference.md#fixed-fields-10
+          "is_set": false,
+          // A list of contraints applied to a query node
+          // reference: https://github.com/NCATSTranslator/ReasonerAPI/blob/master/docs/reference.md#queryconstraint-
+          "constraints"[]
         }
       },
       "edges": {
