@@ -7,7 +7,7 @@ ENTER APP DESCRIPTION HERE
 Example of the Trapi Query, Response, and Meta Knowledge Graph Objects
 ### Query
 <!-- create a query example for every supported query type in the meta knowledge graph for this app -->
-<!-- ```jsonc
+```jsonc
 // query object
 // reference: https://github.com/NCATSTranslator/ReasonerAPI#message
 {
@@ -65,14 +65,14 @@ Example of the Trapi Query, Response, and Meta Knowledge Graph Objects
     }
   }
 }
-```-->
+```
 
 ### Response
-<!-- ```json
+```json
 {
   
 }
-``` -->
+```
 
 ### Meta Knowledge Graph
 ```json
