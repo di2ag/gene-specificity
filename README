@@ -1,5 +1,5 @@
-# <Enter APP Name Here\>
-<ENTER APP DESCRIPTION HERE\>
+# Enter APP Name Here
+ENTER APP DESCRIPTION HERE
 
 ## Trapi Transaction
 ------------------------------------------------------------------------
@@ -7,7 +7,7 @@
 Example of the Trapi Query, Response, and Meta Knowledge Graph Objects
 ### Query
 <!-- create a query example for every supported query type in the meta knowledge graph for this app -->
-```json
+```jsonc
 // query object
 // reference: https://github.com/NCATSTranslator/ReasonerAPI#message
 {
