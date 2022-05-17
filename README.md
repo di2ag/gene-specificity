@@ -1,10 +1,9 @@
-# ENTER APP NAME HERE
-ENTER APP DESCRIPTION HERE
+# <ENTER APP NAME HERE\>
+<ENTER APP DESCRIPTION HERE\>
 
 ## Trapi Transaction
-------------------------------------------------------------------------
+Examples of the Trapi Query, Response, and Meta Knowledge Graph Objects that this app supports.
 
-Example of the Trapi Query, Response, and Meta Knowledge Graph Objects
 ### Query
 <!-- 
   create a query example for every supported query type in the meta knowledge graph for this app
@@ -82,6 +81,10 @@ Example of the Trapi Query, Response, and Meta Knowledge Graph Objects
 ```
 
 ### Meta Knowledge Graph
+<!-- 
+  create a meta knowledge graph example the app
+  reference: https://github.com/NCATSTranslator/ReasonerAPI/blob/master/docs/reference.md#response-
+ -->
 ```json
 {
   "nodes": [
@@ -94,9 +97,14 @@ Example of the Trapi Query, Response, and Meta Knowledge Graph Objects
 ```
 
 ## References
-#### Example Reference 1
+### Example Reference 1
   <!-- use \ to indicate a linebreak -->
-  Link: [example reference home page](www.example.com)\
-  Description: <enter description for reference 1 here>
+  <!-- link to the reference website -->
+  Link: [<ADD LINK TO REFERENCE HERE\>](www.example.com)\
+  Description: <ENTER DESCRIPTION FOR REFERENCE 2 HERE>
 
 ### Example Reference 2
+  <!-- use \ to indicate a linebreak -->
+  <!-- if no website is available to link to, just name it like so -->
+  Name: <SOME REFERENCE WITH NO WEBSITE\>\
+  Description: <ENTER DESCRIPTION FOR REFERENCE 2 HERE>
