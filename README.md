@@ -10,7 +10,7 @@ Examples of the Trapi Query, Response, and Meta Knowledge Graph Objects that thi
   reference: https://github.com/NCATSTranslator/ReasonerAPI/blob/master/docs/reference.md#query-
   -->
 <details>
-  <summary> Click to view json</summary>
+  <summary> Click to view json example</summary>
 
   ```json
   {
@@ -124,7 +124,7 @@ Examples of the Trapi Query, Response, and Meta Knowledge Graph Objects that thi
   reference: https://github.com/NCATSTranslator/ReasonerAPI/blob/master/docs/reference.md#response-
  -->
 <details>
-  <summary> click to view json example </summary>
+  <summary> Click to view json example</summary>
 
 ```json
 {
