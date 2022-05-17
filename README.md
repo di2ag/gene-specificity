@@ -15,24 +15,96 @@ Examples of the Trapi Query, Response, and Meta Knowledge Graph Objects that thi
     "query_graph": {
       "nodes": {
         "n0": {
-          "ids": [],
-          "categories": [],
-          "is_set": false,
-          "constraints": []
+          "ids": [
+            "<ADD BIOLINK CURIE HERE>",
+            "<ADD BIOLINK CURIE HERE>"
+          ],
+          "categories": [
+            "<ADD BIOLINK ENTITY TYPE HERE>",
+            "<ADD BIOLINK ENTITY TYPE HERE>"
+          ],
+          "is_set": <add boolean here>,
+          "constraints": [
+            {
+              "id": "<ADD BIOLINK CURIE HERE>",
+              "name": "<ADD HUMAN READABLE NAME FOR THE ID HERE>",
+              "not": <add boolean here>,
+              "operator": "<ADD AN OPERATOR HERE>",
+              "value": [
+                "<ADD ATTRIBUTE VALUE HERE>",
+                "<ADD ATTRIBUTE VALUE HERE>"
+              ],
+              "unit_id": [
+                "<ADD UNIT_ID FOR VALUE FIELD HERE>",
+                "<ADD UNIT_ID FOR VALUE FIELD HERE>"
+              ],
+              "unit_name": [
+                "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>",
+                "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>"
+              ]
+            }
+          ]
         },
-        "n0": {
-          "ids": [],
-          "categories": [],
-          "is_set": false,
-          "constraints": []
-        }
+        "n1": {
+          "ids": [
+            "<ADD BIOLINK CURIE HERE>",
+            "<ADD BIOLINK CURIE HERE>"
+          ],
+          "categories": [
+            "<ADD BIOLINK ENTITY TYPE HERE>",
+            "<ADD BIOLINK ENTITY TYPE HERE>"
+          ],
+          "is_set": <add boolean here>,
+          "constraints": [
+            {
+              "id": "<ADD BIOLINK CURIE HERE>",
+              "name": "<ADD HUMAN READABLE NAME FOR THE ID HERE>",
+              "not": <add boolean here>,
+              "operator": "<ADD AN OPERATOR HERE>",
+              "value": [
+                "<ADD ATTRIBUTE VALUE HERE>",
+                "<ADD ATTRIBUTE VALUE HERE>"
+              ],
+              "unit_id": [
+                "<ADD UNIT_ID FOR VALUE FIELD HERE>",
+                "<ADD UNIT_ID FOR VALUE FIELD HERE>"
+              ],
+              "unit_name": [
+                "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>",
+                "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>"
+              ]
+            }
+          ]
+        },
       },
       "edges": {
         "e0": {
-          "predicates": [],
+          "predicates": [
+            "<ADD BIOLINK PREDICATE HERE>",
+            "<ADD BIOLINK PREDICATE HERE>"
+          ],
           "subject": "n0",
           "object": "n1",
-          "constraints": []
+          "constraints": [
+            {
+              "id": "<ADD BIOLINK CURIE HERE>",
+              "name": "<ADD HUMAN READABLE NAME FOR THE ID HERE>",
+              "not": false,
+              "operator": "<ADD AN OPERATOR HERE>",
+              "value": [
+                "<ADD ATTRIBUTE VALUE HERE>",
+                "<ADD ATTRIBUTE VALUE HERE>"
+              ],
+              "unit_id": [
+                "<ADD UNIT_ID FOR VALUE FIELD HERE>",
+                "<ADD UNIT_ID FOR VALUE FIELD HERE>"
+              ],
+              "unit_name": [
+                "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>",
+                "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>"
+              ]
+            }
+          ]
         }
       }
     },
@@ -61,12 +133,12 @@ Examples of the Trapi Query, Response, and Meta Knowledge Graph Objects that thi
             "<ADD BIOLINK ENTITY TYPE HERE>",
             "<ADD BIOLINK ENTITY TYPE HERE>"
           ],
-          "is_set": false,
+          "is_set": <add boolean here>,
           "constraints": [
             {
               "id": "<ADD BIOLINK CURIE HERE>",
               "name": "<ADD HUMAN READABLE NAME FOR THE ID HERE>",
-              "not": false,
+              "not": <add boolean here>,
               "operator": "<ADD AN OPERATOR HERE>",
               "value": [
                 "<ADD ATTRIBUTE VALUE HERE>",
@@ -83,7 +155,7 @@ Examples of the Trapi Query, Response, and Meta Knowledge Graph Objects that thi
             }
           ]
         },
-        "n0": {
+        "n1": {
           "ids": [
             "<ADD BIOLINK CURIE HERE>",
             "<ADD BIOLINK CURIE HERE>"
@@ -92,12 +164,12 @@ Examples of the Trapi Query, Response, and Meta Knowledge Graph Objects that thi
             "<ADD BIOLINK ENTITY TYPE HERE>",
             "<ADD BIOLINK ENTITY TYPE HERE>"
           ],
-          "is_set": false,
+          "is_set": <add boolean here>,
           "constraints": [
             {
               "id": "<ADD BIOLINK CURIE HERE>",
               "name": "<ADD HUMAN READABLE NAME FOR THE ID HERE>",
-              "not": false,
+              "not": <add boolean here>,
               "operator": "<ADD AN OPERATOR HERE>",
               "value": [
                 "<ADD ATTRIBUTE VALUE HERE>",
@@ -113,7 +185,7 @@ Examples of the Trapi Query, Response, and Meta Knowledge Graph Objects that thi
               ]
             }
           ]
-        }
+        },
       },
       "edges": {
         "e0": {
@@ -150,14 +222,86 @@ Examples of the Trapi Query, Response, and Meta Knowledge Graph Objects that thi
       "nodes": {
         "name": "<ADD BIOLINK ENTITY NAME HERE>",
         "categories": [
+          "<ADD BIOLINK ENTITY TYPE HERE>",
           "<ADD BIOLINK ENTITY TYPE HERE>"
         ],
-        "attributes": []
+        "attributes": [
+          {
+            "attribute_type_id": "<ADD BIOLINK CURIE HERE>",
+            "original_attribute_name": "<ADD TERM USED BY ORIGINAL SOURCE HERE>",
+            "value": "<ADD ATTRIBUTE VALUE HERE>",
+            "value_type_id": "<ADD BIOLINK CURIE HERE>",
+            "attribute_source": "<ADD ATTRIBUTE SOURCE HERE>",
+            "value_url": "<ADD URL TO ADDITIONAL DOCUMENTATION FOR THIS VALUE>",
+            "description": "<ADD DESCRIPTION HERE>",
+            "attributes": [
+              {
+                "attribute_type_id": "<ADD BIOLINK CURIE HERE>",
+                "original_attribute_name": "<ADD TERM USED BY ORIGINAL SOURCE HERE>",
+                "value": "<ADD ATTRIBUTE VALUE HERE>",
+                "value_type_id": "<ADD BIOLINK CURIE HERE>",
+                "attribute_source": "<ADD ATTRIBUTE SOURCE HERE>",
+                "value_url": "<ADD URL TO ADDITIONAL DOCUMENTATION FOR THIS VALUE>",
+                "description": "<ADD DESCRIPTION HERE>",
+              }
+            ]
+          }
+        ]
+      },
+      "edges": {
+        "e0": {
+          "predicate": "<ADD PREDICATE HERE>",
+          "subject": "n0",
+          "object": "n1",
+          "attributes": [
+            {
+              "attribute_type_id": "<ADD BIOLINK CURIE HERE>",
+              "original_attribute_name": "<ADD TERM USED BY ORIGINAL SOURCE HERE>",
+              "value": "<ADD ATTRIBUTE VALUE HERE>",
+              "value_type_id": "<ADD BIOLINK CURIE HERE>",
+              "attribute_source": "<ADD ATTRIBUTE SOURCE HERE>",
+              "value_url": "<ADD URL TO ADDITIONAL DOCUMENTATION FOR THIS VALUE>",
+              "description": "<ADD DESCRIPTION HERE>",
+              "attributes": [
+                {
+                  "attribute_type_id": "<ADD BIOLINK CURIE HERE>",
+                  "original_attribute_name": "<ADD TERM USED BY ORIGINAL SOURCE HERE>",
+                  "value": "<ADD ATTRIBUTE VALUE HERE>",
+                  "value_type_id": "<ADD BIOLINK CURIE HERE>",
+                  "attribute_source": "<ADD ATTRIBUTE SOURCE HERE>",
+                  "value_url": "<ADD URL TO ADDITIONAL DOCUMENTATION FOR THIS VALUE>",
+                  "description": "<ADD DESCRIPTION HERE>",
+                }
+              ]
+            }
+          ]
+        }
       }
     },
-    "results": {
-      
-    }
+    "results": [
+      {
+        "node_bindings": {
+          "n0": [
+            {
+              "id": "<ADD NODE CURIE HERE>"
+            }
+          ],
+          "n1": [
+            {
+              "id": "<ADD NODE CURIE HERE>"
+            }
+          ]
+        },
+        "edge_bindings": {
+          "e1": [
+            {
+              "id": "<ADD EDGE ID HERE>"
+            }
+          ]
+        },
+        "score": 0
+      },
+    ]
   }
 }
 ```
@@ -171,8 +315,23 @@ Examples of the Trapi Query, Response, and Meta Knowledge Graph Objects that thi
 {
   "nodes": [
     {
-      "<ADD BIOLINK ENTITY HERE>": {
-        "id_prefixes":[]
+      "<ADD BIOLINK ENTITY TYPE HERE>": {
+        "id_prefixes":[
+          "<ADD BIOLINK ENTITY TYPE HERE>",
+          "<ADD BIOLINK ENTITY TYPE HERE>"
+        ],
+        "attributes": [
+          {
+            "attribute_type_id": "",
+            "attribute_source": "",
+            "original_attribute_names": [
+              "<ADD META ATTRIBUTE NAME HERE>",
+              "<ADD META ATTRIBUTE NAME HERE>"
+            ],
+            "constraint_use": <add boolean here>,
+            "constraint_name": "<ADD CONSTRAINT NAME HERE>" 
+          }
+        ]
       },
     }
   ],
@@ -180,7 +339,19 @@ Examples of the Trapi Query, Response, and Meta Knowledge Graph Objects that thi
     {
       "subject": "<ADD SUBJECT CATEGORY HERE>",
       "object": "<ADD OBJECT CATEGORY HERE",
-      "predicate": "<ADD PREDICATE HERE>"
+      "predicate": "<ADD PREDICATE HERE>",
+      "attributes": [
+        {
+          "attribute_type_id": "<ADD ATTRIBUTE CURIE HERE>",
+          "attribute_source": "<ADD ATTRIBUTE SOURCE HERE>",
+          "original_attribute_names": [
+            "<ADD META ATTRIBUTE NAME HERE>",
+            "<ADD META ATTRIBUTE NAME HERE>"
+          ],
+          "constraint_use": <add boolean here>,
+          "constraint_name": "<ADD CONSTRAINT NAME HERE>" 
+        }
+      ]
     }
   ]
 }
