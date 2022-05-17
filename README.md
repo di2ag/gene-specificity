@@ -302,7 +302,13 @@ Examples of the Trapi Query, Response, and Meta Knowledge Graph Objects that thi
         "score": 0
       },
     ]
-  }
+  },
+  "logs": [],
+  "workflow": [
+    {
+      "id": "<ADD WORKFLOW TYPE HERE>"
+    }
+  ]
 }
 ```
 
