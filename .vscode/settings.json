@@ -1,0 +1,14 @@
+{
+    "cSpell.words": [
+        "autopep",
+        "jupyterlab",
+        "markdownlint",
+        "mypy",
+        "pycodestyle",
+        "pydocstyle",
+        "pylama",
+        "pylance",
+        "pylint",
+        "yapf"
+    ]
+}
