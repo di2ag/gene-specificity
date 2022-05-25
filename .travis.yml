@@ -1,1 +1,11 @@
+language: node_js
+node_js:
+  - 7
 
+### Validate Markdown Files
+### -g searches for all files visible to git
+### -c specifies the rule configuration file
+### -f attempts to auto fix errors if possible
+script:
+  # - markdownlint -g -c .markdownlint.jsonc -f README.md
+  - markdownlint -g -c .markdownlint.jsonc -f README.md

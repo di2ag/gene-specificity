@@ -35,6 +35,9 @@
 
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
+		// spell checker
+		"streetsidesoftware.code-spell-checker",
+		// microsoft's extensions for python development
 		"ms-python.python",
 		"ms-python.vscode-pylance",
 		"patrick91.python-dependencies-vscode"
