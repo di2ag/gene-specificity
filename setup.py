@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from setuptools import find_packages
 from setuptools import setup
 
@@ -44,3 +45,8 @@ setup(
         )
     ]
 )
+=======
+from setuptools import setup
+
+setup()
+>>>>>>> f4fe133d92891d2594b70ae1fc36aa72185bf6c8
