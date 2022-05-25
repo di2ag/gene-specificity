@@ -1,0 +1,10 @@
+# README and CHANGELOG
+include README.md
+include CHANGELOG.md
+
+# setup configuration file
+include setup.cfg
+
+# app meta data files
+# Include the data files
+recursive-include data *.metadata.json
