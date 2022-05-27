@@ -1,0 +1,29 @@
+{
+  "nodes": {
+    "biolink:Gene": {
+      "id_prefixes": [
+        "ENSEMBL",
+        "NCBIGene",
+        "HGNC"
+      ]
+    },
+    "biolink:GrossAnatomicalStructure": {
+      "id_prefixes": [
+        "UBERON",
+        "EFO"
+      ]
+    }
+  },
+  "edges": [
+    {
+      "subject": "biolink:Gene",
+      "object": "biolink:GrossAnatomicalStructure",
+      "predicate": "biolink:expressed_in"
+    },
+    {
+      "subject": "biolink:GrossAnatomicalStructure",
+      "object": "biolink:Gene",
+      "predicate": "biolink:expresses"
+    }
+  ]
+}

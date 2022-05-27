@@ -1,0 +1,102 @@
+{
+    "specificity_mean_gene": {
+        "fields": [
+            {
+                "id": "gene_curie",
+                "type": "CharField",
+                "parameters": {
+                    "max_length": 35
+                }
+            },
+            {
+                "id": "tissue_pk",
+                "type": "CharField",
+                "parameters": {
+                    "max_length": 35
+                }
+            },
+            {
+                "id": "specificity_mean",
+                "type": "CharField",
+                "parameters": {
+                    "max_length": 35
+                }
+            }
+        ]
+    },
+    "specificity_mean_tissue": {
+        "fields": [
+            {
+                "id": "gene_curie",
+                "type": "CharField",
+                "parameters": {
+                    "max_length": 35
+                }
+            },
+            {
+                "id": "tissue_pk",
+                "type": "CharField",
+                "parameters": {
+                    "max_length": 35
+                }
+            },
+            {
+                "id": "specificity_mean",
+                "type": "CharField",
+                "parameters": {
+                    "max_length": 35
+                }
+            }
+        ]
+    },
+    "specificity_median_gene": {
+        "fields": [
+            {
+                "id": "gene_curie",
+                "type": "CharField",
+                "parameters": {
+                    "max_length": 35
+                }
+            },
+            {
+                "id": "tissue_pk",
+                "type": "CharField",
+                "parameters": {
+                    "max_length": 35
+                }
+            },
+            {
+                "id": "specificity_mean",
+                "type": "CharField",
+                "parameters": {
+                    "max_length": 35
+                }
+            }
+        ]
+    },
+    "specificity_median_tissue": {
+        "fields": [
+            {
+                "id": "gene_curie",
+                "type": "CharField",
+                "parameters": {
+                    "max_length": 35
+                }
+            },
+            {
+                "id": "tissue_pk",
+                "type": "CharField",
+                "parameters": {
+                    "max_length": 35
+                }
+            },
+            {
+                "id": "specificity_mean",
+                "type": "CharField",
+                "parameters": {
+                    "max_length": 35
+                }
+            }
+        ]
+    }
+}

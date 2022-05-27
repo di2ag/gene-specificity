@@ -1,14 +1,22 @@
 {
     "cSpell.words": [
         "autopep",
+        "biolink",
+        "cookiecutter",
+        "ENSEMBL",
+        "HGNC",
+        "ISCL",
         "jupyterlab",
         "markdownlint",
         "mypy",
+        "NCBI",
         "pycodestyle",
         "pydocstyle",
         "pylama",
         "pylance",
         "pylint",
+        "trapi",
+        "UBERON",
         "yapf"
     ]
 }
