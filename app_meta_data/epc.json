@@ -1,0 +1,20 @@
+[
+    {
+        "attribute_type_id": "biolink:primary_knowledge_source",
+        "original_attribute_name": null,
+        "value": "infores:connections-hypothesis",
+        "value_type_id": "biolink:InformationResource",
+        "attribute_source": "infores:connections-hypothesis",
+        "value_url": "http://chp.thayer.dartmouth.edu",
+        "description": "The Connections Hypothesis Provider from NCATS Translator."
+    },
+    {
+        "attribute_type_id": "biolink:supporting_data_source",
+        "original_attribute_name": null,
+        "value": "infores:tcga",
+        "value_type_id": "biolink:InformationResource",
+        "attribute_source": "infores:gdc",
+        "value_url": "https://gtexportal.org/home/",
+        "description": "The Cancer Genome Atlas provided by the GDC Data Portal."
+    }
+]

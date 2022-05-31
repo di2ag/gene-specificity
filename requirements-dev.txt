@@ -1,0 +1,7 @@
+bump2version
+pylama
+django
+wheel
+git+https://github.com/di2ag/trapi_model.git
+git+https://github.com/di2ag/chp_utils.git
+django-stubs

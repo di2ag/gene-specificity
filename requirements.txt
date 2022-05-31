@@ -1,4 +1,0 @@
-bump2version
-pylama
-django
-wheel
