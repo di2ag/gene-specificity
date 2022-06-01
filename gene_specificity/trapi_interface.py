@@ -2,25 +2,26 @@
 '''trapi interface'''
 import json
 import pkgutil
-from numpy import mean
+from typing import List, Tuple
+
+from chp_utils.conflation import ConflationMap  # type: ignore
+from chp_utils.curie_database import CurieDatabase  # type: ignore
 from trapi_model.logger import Logger as TrapiLogger  # type: ignore
 from trapi_model.meta_knowledge_graph import MetaKnowledgeGraph  # type: ignore
+from trapi_model.meta_knowledge_graph import MetaEdge, MetaNode  # type: ignore
 from trapi_model.query import Query  # type: ignore
-from trapi_model.query_graph import QueryGraph  # type: ignore
-from trapi_model.query_graph import QNode  # type: ignore
 from trapi_model.query_graph import QEdge  # type: ignore
-from trapi_model.meta_knowledge_graph import MetaNode, MetaEdge  # type: ignore
-from chp_utils.curie_database import CurieDatabase  # type: ignore
-from chp_utils.conflation import ConflationMap  # type: ignore
-from . models import *
+from trapi_model.query_graph import QNode  # type: ignore
+from trapi_model.query_graph import QueryGraph  # type: ignore
+
+from .models import *
 from .trapi_exceptions import *
-from typing import List, Tuple
 
 
 class TrapiInterface:
     # type: ignore #noqa
-    def __init__(self, trapi_version: str = '1.2')
-    self.trapi_version = trapi_version  # type: ignore #noqa
+    def __init__(self, trapi_version: str = '1.2'):
+        self.trapi_version = trapi_version  # type: ignore #noqa
 
     def get_curies(self) -> CurieDatabase:
         return self._read_curies_file()
@@ -101,7 +102,7 @@ class TrapiInterface:
 class ModelFinder:
 
     @staticmethod
-    def find_model(qSubject: QNode, qObject: QNode, predicates: List[str]) -> Tuple(Model, Model):
+    def find_model(qSubject: QNode, qObject: QNode, predicates: List[str]): # type: ignore
         qSubject_categories = [category.get_curie() for category in qSubject.categories]  # type: ignore
         qObject_categories = [category.get_curie() for category in qObject.categories]  # type: ignore
 

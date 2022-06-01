@@ -4,5 +4,5 @@ from django.apps import AppConfig
 
 class GeneSpecificityConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = '{{ cookiecutter.app_name }}'
-    label = '{{ cookiecutter.app_name }}'
+    name = 'gene_specificity'
+    label = 'gene_specificity'

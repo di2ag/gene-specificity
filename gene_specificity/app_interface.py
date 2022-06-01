@@ -6,10 +6,8 @@ from trapi_model.knowledge_graph import KnowledgeGraph  # type: ignore #noqa
 from trapi_model.meta_knowledge_graph import MetaKnowledgeGraph  # type: ignore #noqa
 from chp_utils.curie_database import CurieDatabase  # type: ignore #noqa
 from chp_utils.conflation import ConflationMap  # type: ignore #noqa
-from typing import TYPE_CHECKING
-if TYPE_CHECKING:
-    from typing import List, Union
-    from trapi_model.query import Query # type: ignore #noqa
+from typing import TYPE_CHECKING, Union, List
+from trapi_model.query import Query # type: ignore #noqa
 
 
 def get_app_config(query: Union[Query, None]) -> GeneSpecificityConfig:
@@ -48,3 +46,5 @@ def get_response(consistent_queries: List[Query]):  # type: ignore
         app_logs.extend(interface.logger.to_dict())  # type: ignore
     status = 'Success'
     return responses, app_logs, status, description  # type: ignore
+
+
