@@ -19,101 +19,31 @@ Examples of the Trapi Query, Response, and Meta Knowledge Graph Objects that thi
         "nodes": {
           "n0": {
             "ids": [
-              "<ADD BIOLINK CURIE HERE>",
-              "<ADD BIOLINK CURIE HERE>"
+              "ENSEMBL:ENSG00000132155"
             ],
             "categories": [
-              "<ADD BIOLINK ENTITY TYPE HERE>",
-              "<ADD BIOLINK ENTITY TYPE HERE>"
-            ],
-            "is_set": <add boolean here>,
-            "constraints": [
-              {
-                "id": "<ADD BIOLINK CURIE HERE>",
-                "name": "<ADD HUMAN READABLE NAME FOR THE ID HERE>",
-                "not": <add boolean here>,
-                "operator": "<ADD AN OPERATOR HERE>",
-                "value": [
-                  "<ADD ATTRIBUTE VALUE HERE>",
-                  "<ADD ATTRIBUTE VALUE HERE>"
-                ],
-                "unit_id": [
-                  "<ADD UNIT_ID FOR VALUE FIELD HERE>",
-                  "<ADD UNIT_ID FOR VALUE FIELD HERE>"
-                ],
-                "unit_name": [
-                  "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>",
-                  "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>"
-                ]
-              }
+              "biolink:Gene"
             ]
           },
           "n1": {
-            "ids": [
-              "<ADD BIOLINK CURIE HERE>",
-              "<ADD BIOLINK CURIE HERE>"
-            ],
             "categories": [
-              "<ADD BIOLINK ENTITY TYPE HERE>",
-              "<ADD BIOLINK ENTITY TYPE HERE>"
-            ],
-            "is_set": <add boolean here>,
-            "constraints": [
-              {
-                "id": "<ADD BIOLINK CURIE HERE>",
-                "name": "<ADD HUMAN READABLE NAME FOR THE ID HERE>",
-                "not": <add boolean here>,
-                "operator": "<ADD AN OPERATOR HERE>",
-                "value": [
-                  "<ADD ATTRIBUTE VALUE HERE>",
-                  "<ADD ATTRIBUTE VALUE HERE>"
-                ],
-                "unit_id": [
-                  "<ADD UNIT_ID FOR VALUE FIELD HERE>",
-                  "<ADD UNIT_ID FOR VALUE FIELD HERE>"
-                ],
-                "unit_name": [
-                  "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>",
-                  "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>"
-                ]
-              }
+              "biolink:GrossAnatomicalStructure"
             ]
-          },
+          }
         },
         "edges": {
           "e0": {
-            "predicates": [
-              "<ADD BIOLINK PREDICATE HERE>",
-              "<ADD BIOLINK PREDICATE HERE>"
-            ],
             "subject": "n0",
             "object": "n1",
-            "constraints": [
-              {
-                "id": "<ADD BIOLINK CURIE HERE>",
-                "name": "<ADD HUMAN READABLE NAME FOR THE ID HERE>",
-                "not": false,
-                "operator": "<ADD AN OPERATOR HERE>",
-                "value": [
-                  "<ADD ATTRIBUTE VALUE HERE>",
-                  "<ADD ATTRIBUTE VALUE HERE>"
-                ],
-                "unit_id": [
-                  "<ADD UNIT_ID FOR VALUE FIELD HERE>",
-                  "<ADD UNIT_ID FOR VALUE FIELD HERE>"
-                ],
-                "unit_name": [
-                  "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>",
-                  "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>"
-                ]
-              }
+            "predicates": [
+              "biolink:expressed_in"
             ]
           }
         }
-      },
-      "knowledge_graph": {},
-      "results": {}
-    }
+      }
+    },
+    "knowledge_graph": {},
+    "results": {}
   }
   ```
 </details>
@@ -133,189 +63,110 @@ Examples of the Trapi Query, Response, and Meta Knowledge Graph Objects that thi
       "nodes": {
         "n0": {
           "ids": [
-            "<ADD BIOLINK CURIE HERE>",
-            "<ADD BIOLINK CURIE HERE>"
+            "ENSEMBL:ENSG00000132155"
           ],
           "categories": [
-            "<ADD BIOLINK ENTITY TYPE HERE>",
-            "<ADD BIOLINK ENTITY TYPE HERE>"
+            "biolink:Gene"
           ],
-          "is_set": <add boolean here>,
-          "constraints": [
-            {
-              "id": "<ADD BIOLINK CURIE HERE>",
-              "name": "<ADD HUMAN READABLE NAME FOR THE ID HERE>",
-              "not": <add boolean here>,
-              "operator": "<ADD AN OPERATOR HERE>",
-              "value": [
-                "<ADD ATTRIBUTE VALUE HERE>",
-                "<ADD ATTRIBUTE VALUE HERE>"
-              ],
-              "unit_id": [
-                "<ADD UNIT_ID FOR VALUE FIELD HERE>",
-                "<ADD UNIT_ID FOR VALUE FIELD HERE>"
-              ],
-              "unit_name": [
-                "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>",
-                "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>"
-              ]
-            }
-          ]
+          "constraints": []
         },
         "n1": {
-          "ids": [
-            "<ADD BIOLINK CURIE HERE>",
-            "<ADD BIOLINK CURIE HERE>"
-          ],
+          "ids": null,
           "categories": [
-            "<ADD BIOLINK ENTITY TYPE HERE>",
-            "<ADD BIOLINK ENTITY TYPE HERE>"
+            "biolink:GrossAnatomicalStructure"
           ],
-          "is_set": <add boolean here>,
-          "constraints": [
-            {
-              "id": "<ADD BIOLINK CURIE HERE>",
-              "name": "<ADD HUMAN READABLE NAME FOR THE ID HERE>",
-              "not": <add boolean here>,
-              "operator": "<ADD AN OPERATOR HERE>",
-              "value": [
-                "<ADD ATTRIBUTE VALUE HERE>",
-                "<ADD ATTRIBUTE VALUE HERE>"
-              ],
-              "unit_id": [
-                "<ADD UNIT_ID FOR VALUE FIELD HERE>",
-                "<ADD UNIT_ID FOR VALUE FIELD HERE>"
-              ],
-              "unit_name": [
-                "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>",
-                "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>"
-              ]
-            }
-          ]
-        },
+          "constraints": []
+        }
       },
       "edges": {
         "e0": {
           "predicates": [
-            "<ADD BIOLINK PREDICATE HERE>",
-            "<ADD BIOLINK PREDICATE HERE>"
+            "biolink:expressed_in"
           ],
           "subject": "n0",
           "object": "n1",
-          "constraints": [
-            {
-              "id": "<ADD BIOLINK CURIE HERE>",
-              "name": "<ADD HUMAN READABLE NAME FOR THE ID HERE>",
-              "not": false,
-              "operator": "<ADD AN OPERATOR HERE>",
-              "value": [
-                "<ADD ATTRIBUTE VALUE HERE>",
-                "<ADD ATTRIBUTE VALUE HERE>"
-              ],
-              "unit_id": [
-                "<ADD UNIT_ID FOR VALUE FIELD HERE>",
-                "<ADD UNIT_ID FOR VALUE FIELD HERE>"
-              ],
-              "unit_name": [
-                "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>",
-                "<ADD HUMAN READABLE NAME FOR THE VALUE FIELD HERE>"
-              ]
-            }
-          ]
+          "constraints": []
         }
       }
     },
     "knowledge_graph": {
       "nodes": {
-        "name": "<ADD BIOLINK ENTITY NAME HERE>",
-        "categories": [
-          "<ADD BIOLINK ENTITY TYPE HERE>",
-          "<ADD BIOLINK ENTITY TYPE HERE>"
-        ],
-        "attributes": [
-          {
-            "attribute_type_id": "<ADD BIOLINK CURIE HERE>",
-            "original_attribute_name": "<ADD TERM USED BY ORIGINAL SOURCE HERE>",
-            "value": "<ADD ATTRIBUTE VALUE HERE>",
-            "value_type_id": "<ADD BIOLINK CURIE HERE>",
-            "attribute_source": "<ADD ATTRIBUTE SOURCE HERE>",
-            "value_url": "<ADD URL TO ADDITIONAL DOCUMENTATION FOR THIS VALUE>",
-            "description": "<ADD DESCRIPTION HERE>",
-            "attributes": [
-              {
-                "attribute_type_id": "<ADD BIOLINK CURIE HERE>",
-                "original_attribute_name": "<ADD TERM USED BY ORIGINAL SOURCE HERE>",
-                "value": "<ADD ATTRIBUTE VALUE HERE>",
-                "value_type_id": "<ADD BIOLINK CURIE HERE>",
-                "attribute_source": "<ADD ATTRIBUTE SOURCE HERE>",
-                "value_url": "<ADD URL TO ADDITIONAL DOCUMENTATION FOR THIS VALUE>",
-                "description": "<ADD DESCRIPTION HERE>",
-              }
-            ]
-          }
-        ]
+        "ENSEMBL:ENSG00000132155": {
+          "name": "RAF1",
+          "categories": [
+            "biolink:Gene"
+          ],
+          "attributes": []
+        },
+        "UBERON:0014892": {
+          "categories": [
+            "biolink:GrossAnatomicalStructure"
+          ],
+          "attributes": []
+        }
       },
       "edges": {
         "e0": {
-          "predicate": "<ADD PREDICATE HERE>",
-          "subject": "n0",
-          "object": "n1",
+          "predicate": "biolink:expressed_in",
+          "subject": "ENSEMBL:ENSG00000132155",
+          "object": "UBERON:0014892",
           "attributes": [
             {
-              "attribute_type_id": "<ADD BIOLINK CURIE HERE>",
-              "original_attribute_name": "<ADD TERM USED BY ORIGINAL SOURCE HERE>",
-              "value": "<ADD ATTRIBUTE VALUE HERE>",
-              "value_type_id": "<ADD BIOLINK CURIE HERE>",
-              "attribute_source": "<ADD ATTRIBUTE SOURCE HERE>",
-              "value_url": "<ADD URL TO ADDITIONAL DOCUMENTATION FOR THIS VALUE>",
-              "description": "<ADD DESCRIPTION HERE>",
-              "attributes": [
-                {
-                  "attribute_type_id": "<ADD BIOLINK CURIE HERE>",
-                  "original_attribute_name": "<ADD TERM USED BY ORIGINAL SOURCE HERE>",
-                  "value": "<ADD ATTRIBUTE VALUE HERE>",
-                  "value_type_id": "<ADD BIOLINK CURIE HERE>",
-                  "attribute_source": "<ADD ATTRIBUTE SOURCE HERE>",
-                  "value_url": "<ADD URL TO ADDITIONAL DOCUMENTATION FOR THIS VALUE>",
-                  "description": "<ADD DESCRIPTION HERE>",
-                }
-              ]
+              "attribute_type_id": "Specificity",
+              "original_attribute_name": null,
+              "value": 0.005393877080020849,
+              "value_type_id": "biolink:has_evidence",
+              "attribute_source": null,
+              "value_url": null,
+              "description": "Specificity value between a tissue and gene indicates a gene's RNA Sequence expression specificity to that tissue. Values closer to 0 indicate no expression specificity and values closer to 5.755 or log_2(54) (54 being the number of tissues used in this analysis) indicate complete specificity."
+            },
+            {
+              "attribute_type_id": "primary_knowledge_source",
+              "original_attribute_name": null,
+              "value": "infores:connections-hypothesis",
+              "value_type_id": "biolink:InformationResource",
+              "attribute_source": "infores:connections-hypothesis",
+              "value_url": "http://chp.thayer.dartmouth.edu",
+              "description": "The Connections Hypothesis Provider from NCATS Translator."
+            },
+            {
+              "attribute_type_id": "biolink:supporting_data_source",
+              "original_attribute_name": null,
+              "value": "infores:tcga",
+              "value_type_id": "biolink:InformationResource",
+              "attribute_source": "infores:gdc",
+              "value_url": "https://gtexportal.org/home/",
+              "description": "The Cancer Genome Atlas provided by the GDC Data Portal."
             }
           ]
         }
-      }
     },
     "results": [
       {
+        "edge_bindings": {
+          "e0": [
+            {
+              "id": "e0"
+            }
+          ]
+        },
         "node_bindings": {
           "n0": [
             {
-              "id": "<ADD NODE CURIE HERE>"
+              "id": "ENSEMBL:ENSG00000132155"
             }
           ],
           "n1": [
             {
-              "id": "<ADD NODE CURIE HERE>"
+              "id": "UBERON:0014892"
             }
           ]
-        },
-        "edge_bindings": {
-          "e1": [
-            {
-              "id": "<ADD EDGE ID HERE>"
-            }
-          ]
-        },
-        "score": <ADD SCORE HERE>
-      },
+        }
+      }
     ]
   },
   "logs": [],
-  "workflow": [
-    {
-      "id": "<ADD WORKFLOW TYPE HERE>"
-    }
-  ]
+  "workflow": []
 }
 ```
 </details>
