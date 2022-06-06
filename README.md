@@ -181,45 +181,31 @@ Examples of the Trapi Query, Response, and Meta Knowledge Graph Objects that thi
 
 ```json
 {
-  "nodes": [
-    {
-      "<ADD BIOLINK ENTITY TYPE HERE>": {
-        "id_prefixes":[
-          "<ADD BIOLINK ENTITY TYPE HERE>",
-          "<ADD BIOLINK ENTITY TYPE HERE>"
-        ],
-        "attributes": [
-          {
-            "attribute_type_id": "",
-            "attribute_source": "",
-            "original_attribute_names": [
-              "<ADD META ATTRIBUTE NAME HERE>",
-              "<ADD META ATTRIBUTE NAME HERE>"
-            ],
-            "constraint_use": <add boolean here>,
-            "constraint_name": "<ADD CONSTRAINT NAME HERE>" 
-          }
-        ]
-      },
+  "nodes": {
+    "biolink:Gene": {
+      "id_prefixes": [
+        "ENSEMBL",
+        "NCBIGene",
+        "HGNC"
+      ]
+    },
+    "biolink:GrossAnatomicalStructure": {
+      "id_prefixes": [
+        "UBERON",
+        "EFO"
+      ]
     }
-  ],
+  },
   "edges": [
     {
-      "subject": "<ADD SUBJECT CATEGORY HERE>",
-      "object": "<ADD OBJECT CATEGORY HERE",
-      "predicate": "<ADD PREDICATE HERE>",
-      "attributes": [
-        {
-          "attribute_type_id": "<ADD ATTRIBUTE CURIE HERE>",
-          "attribute_source": "<ADD ATTRIBUTE SOURCE HERE>",
-          "original_attribute_names": [
-            "<ADD META ATTRIBUTE NAME HERE>",
-            "<ADD META ATTRIBUTE NAME HERE>"
-          ],
-          "constraint_use": <add boolean here>,
-          "constraint_name": "<ADD CONSTRAINT NAME HERE>" 
-        }
-      ]
+      "subject": "biolink:Gene",
+      "object": "biolink:GrossAnatomicalStructure",
+      "predicate": "biolink:expressed_in"
+    },
+    {
+      "subject": "biolink:GrossAnatomicalStructure",
+      "object": "biolink:Gene",
+      "predicate": "biolink:expresses"
     }
   ]
 }
