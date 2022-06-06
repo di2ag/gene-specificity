@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/gene_specificity_testproj/manage.py",
             "args": [
-                "runserver"
+                "runserver",
             ],
             "django": true,
             "justMyCode": true
