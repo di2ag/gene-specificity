@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 chp_db_fixture.json.gz
+=======
+fixtures/
+>>>>>>> 92ca8779c719cb4d288fcb3cc377ddc02c407b0a
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
