@@ -30,6 +30,9 @@
         "UBERON:0001873": [
             "brain_caudate_basal_ganglia"
         ],
+        "UBERON:0002245": [
+            "brain_cerebellar_hemisphere"
+        ],
         "UBERON:0002037": [
             "brain_cerebellum"
         ],
