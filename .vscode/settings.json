@@ -90,6 +90,7 @@
         "pylance",
         "pylint",
         "qedge",
+        "qedges",
         "qnode",
         "RERE",
         "SAMD",

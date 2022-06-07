@@ -1,7 +1,6 @@
-from .trapi_interface import TrapiInterface
+from gene_specificity.trapi_interface import TrapiInterface
 # from .apps import {{cookiecutter.app_config_name}}  # type: ignore #noqa
-from .apps import GeneSpecificityConfig
-from .models import *
+from gene_specificity.apps import GeneSpecificityConfig
 from trapi_model.knowledge_graph import KnowledgeGraph  # type: ignore #noqa
 from trapi_model.meta_knowledge_graph import MetaKnowledgeGraph  # type: ignore #noqa
 from chp_utils.curie_database import CurieDatabase  # type: ignore #noqa
@@ -39,12 +38,16 @@ def get_response(consistent_queries: List[Query]):  # type: ignore
     status: str = None  # type: ignore #noqa
     description: str = None  # type: ignore #noqa
     app_logs = []
-    for consistent_query in consistent_queries:  # type: ignore #noqa
+    if isinstance(consistent_queries, list):
+        for consistent_query in consistent_queries:  # type: ignore #noqa
+            interface = get_trapi_interface()
+            response = interface.get_response(consistent_query)  # type: ignore
+            responses.append(response)  # type: ignore
+            app_logs.extend(interface.logger.to_dict())  # type: ignore
+    else:
         interface = get_trapi_interface()
-        response = interface.get_response(consistent_query)  # type: ignore
+        response = interface.get_response(consistent_queries)  # type: ignore
         responses.append(response)  # type: ignore
         app_logs.extend(interface.logger.to_dict())  # type: ignore
     status = 'Success'
     return responses, app_logs, status, description  # type: ignore
-
-

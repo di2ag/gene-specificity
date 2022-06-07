@@ -39,8 +39,8 @@ class query(APIView):
 
     def post(self, request):
         query = process_request(request, trapi_version=self.trapi_version)
-        response = get_response(query)
-        return JsonResponse(response.to_dict())  # type:ignore
+        response = get_response(query)[0][0].to_dict()
+        return JsonResponse(response)  # type:ignore
 
 
 class meta_knowledge_graph(APIView):
