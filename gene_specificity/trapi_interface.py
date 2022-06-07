@@ -71,6 +71,8 @@ class TrapiInterface:
         return 'gene_specificity'
 
     def get_response(self, query: Query):  # type: ignore
+        response_object: Query = query.get_copy()
+
         # Get the edge object (there's only one)
         qedges: QEdge = query.message.query_graph.edges  # type: ignore
         qedge: QEdge = qedges['e0']  # type: ignore
@@ -99,18 +101,21 @@ class TrapiInterface:
                 "biolink:GrossAnatomicalStructure" in qObject_categories and\
                     "biolink:expressed_in" in predicates:
                 results: QuerySet = SpecificityMeanGene.objects.filter(
-                    gene_curie=q_subject_id)
+                    gene_curie=q_subject_id).reverse()
             elif "biolink:GrossAnatomicalStructure" in qSubject_categories and\
                 "biolink:Gene" in qObject_categories and\
                     "biolink:expresses" in predicates:
                 results: QuerySet = SpecificityMeanTissue.objects.filter(
-                    tissue_curie=q_subject_id)
+                    tissue_curie=q_subject_id).reverse()
             else:
                 raise NoSupportedQueriesFound
         # type: ignore
-        return self._build_response(query, q_subject_node, results)  # type: ignore
+        max_results = query.max_results
+        if max_results is not None:
+            results = results[:max_results]  # type: ignore
+        return self._build_response(query, q_subject_node, results, response_object)  # type: ignore
 
-    def _build_response(self, query: Query, q_subject_node: QNode, data_base_results: QuerySet):
+    def _build_response(self, query: Query, q_subject_node: QNode, data_base_results: QuerySet, response_object: Query):
         response_results = query.message.results
         node_bindings = {}
         edge_bindings = {}
@@ -123,8 +128,12 @@ class TrapiInterface:
         knode_subject_curie: str = knowledge_graph.add_node(
             q_subject_node.ids[0], subject_name, q_subject_node.categories[0].get_curie())  # type: ignore
 
-        node_bindings.update({query.message.query_graph.find_nodes(  # type: ignore
-            ids=q_subject_node.ids[0]): [knode_subject_curie]})  # type: ignore
+        for k, v in query.message.query_graph.nodes.items():
+            if v == q_subject_node:
+                subject_key = k
+                break
+
+        node_bindings.update({subject_key: [knode_subject_curie]})  # type: ignore
 
         qnode: QNode
         for qnode in query.message.query_graph.nodes:
@@ -132,7 +141,6 @@ class TrapiInterface:
             if qnode != q_subject_node:
                 wildcard_node_key = query.message.query_graph.find_nodes(  # type: ignore
                     qnode.categories)[0]
-
         for result in data_base_results:  # type: ignore
             # type: ignore
             result: Tuple[str, str, float] = result.get_result()  # type: ignore
@@ -144,6 +152,7 @@ class TrapiInterface:
             )[object_categories][object_id][0]  # type: ignore
             knode_object_curie: str = knowledge_graph.add_node(
                 object_id, object_name, object_categories)  # type: ignore
+            
             node_bindings.update(
                 {wildcard_node_key: [knode_object_curie]})  # type: ignore
 
@@ -154,12 +163,15 @@ class TrapiInterface:
                 predicate_str = "biolink:expressed_in"
             else:
                 predicate_str = "biolink:expresses"
-            kedge: KEdge = knowledge_graph.add_edge(  # type: ignore
+            kedge_key: KEdge = knowledge_graph.add_edge(  # type: ignore
                 k_subject=knode_subject_curie,
                 k_object=knode_object_curie,
                 predicate=predicate_str)
 
-            kedge = knowledge_graph.edges[kedge]
+            qedge_key = list(query.message.query_graph.edges.keys())[0]  # type: ignore
+            edge_bindings.update({qedge_key: [kedge_key]})  # type: ignore
+            response_results.add_result(node_bindings, edge_bindings)
+            kedge: KEdge = knowledge_graph.edges[kedge_key]
 
             # add specificity
             kedge.add_attribute(
@@ -197,13 +209,11 @@ class TrapiInterface:
                 description="The Cancer Genome Atlas provided by the GDC Data Portal."
             )
 
-        qedge_key = list(query.message.query_graph.edges.keys())[0]  # type: ignore
-        
-        edge_bindings.update({qedge_key: [kedge]})  # type: ignore
-        response_results.add_result(node_bindings, edge_bindings)
-        response_object: Query = copy(query)
+
+        # response_object: Query = copy(query)
+
         response_object.message.results = response_results
-        response_object.message.knowledge_graph
+        response_object.message.knowledge_graph = knowledge_graph
         return response_object
 
     def is_wild_card(self, subject_node: QNode, object_node: QNode):  # type: ignore

@@ -1,3 +1,4 @@
+from asyncio import constants
 from gene_specificity.trapi_interface import TrapiInterface
 # from .apps import {{cookiecutter.app_config_name}}  # type: ignore #noqa
 from gene_specificity.apps import GeneSpecificityConfig
@@ -46,6 +47,7 @@ def get_response(consistent_queries: List[Query]):  # type: ignore
             app_logs.extend(interface.logger.to_dict())  # type: ignore
     else:
         interface = get_trapi_interface()
+        
         response = interface.get_response(consistent_queries)  # type: ignore
         responses.append(response)  # type: ignore
         app_logs.extend(interface.logger.to_dict())  # type: ignore

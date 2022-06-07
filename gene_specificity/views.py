@@ -1,8 +1,11 @@
+from textwrap import indent
 from rest_framework.views import APIView
 from django.http import HttpResponse, JsonResponse
 from gene_specificity.app_interface import get_response, get_meta_knowledge_graph, get_curies
 import logging
+import json
 from trapi_model.query import Query
+from sys import maxsize
 # Setup logging
 logging.addLevelName(25, "NOTE")
 # Add a special logging function
@@ -39,9 +42,10 @@ class query(APIView):
 
     def post(self, request):
         query = process_request(request, trapi_version=self.trapi_version)
-        response = get_response(query)[0][0].to_dict()
+        response = get_response(query)
+        response = response[0][0]
+        response = response.to_dict()
         return JsonResponse(response)  # type:ignore
-
 
 class meta_knowledge_graph(APIView):
 
