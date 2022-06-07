@@ -4,3 +4,6 @@ django_extensions
 django
 django-stubs
 djangorestframework
+trapi_model@git+https://github.com/di2ag/trapi_model.git
+chp_utils@git+https://github.com/di2ag/chp_utils.git
+reasoner_validator@git+https://github.com/di2ag/reasoner-validator.git
