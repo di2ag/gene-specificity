@@ -33,7 +33,7 @@ class TrapiInterface:
     def _read_curies_file(self) -> CurieDatabase:
         curies_bytes: bytes = pkgutil.get_data(
             'gene_specificity',
-            'app_meta_data/curies.json'
+            'gene_specificity/app_meta_data/curies.json'
         )  # type: ignore
         curies_str = curies_bytes.decode('utf-8')
         curies_json = json.loads(curies_str)
@@ -46,7 +46,7 @@ class TrapiInterface:
     def _read_meta_knowledge_graph(self) -> MetaKnowledgeGraph:
         meta_kg_bytes: bytes = pkgutil.get_data(
             'gene_specificity',
-            'app_meta_data/meta_knowledge_graph.json'
+            'gene_specificity/app_meta_data/meta_knowledge_graph.json'
         )  # type: ignore
         meta_kg_str = meta_kg_bytes.decode('utf-8')
         meta_kg_json = json.loads(meta_kg_str)
@@ -57,7 +57,7 @@ class TrapiInterface:
     def _read_conflation_map(self) -> ConflationMap:
         conflation_map_bytes: bytes = pkgutil.get_data(
             'gene_specificity',
-            'app_meta_data/conflation_map.json'
+            'gene_specificity/app_meta_data/conflation_map.json'
         )  # type: ignore
         conflation_map_str = conflation_map_bytes.decode('utf-8')
         conflation_map_json = json.loads(conflation_map_str)
