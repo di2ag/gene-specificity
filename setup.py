@@ -25,6 +25,7 @@ setup(
                 ]
             )
         ],
+    package_data={'gene_specificity': ['app_meta_data/conflation_map.json', 'app_meta_data/curies.json', 'app_meta_data/epc.json', 'app_meta_data/meta_knowledge_graph.json']},
     dependency_links=[
     ]
 )
