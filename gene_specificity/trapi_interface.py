@@ -1,6 +1,7 @@
 
 '''trapi interface'''
 from copy import copy
+import os
 import json
 import pkgutil
 from typing import Tuple, Union
