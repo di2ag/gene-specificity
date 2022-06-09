@@ -4,6 +4,7 @@ from copy import copy
 import os
 import json
 import pkgutil
+import pkg_resources
 from typing import Tuple, Union
 
 from django.db.models import QuerySet
