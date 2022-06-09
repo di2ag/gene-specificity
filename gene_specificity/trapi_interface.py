@@ -50,7 +50,7 @@ class TrapiInterface:
         return self.curies_db
 
     def _get_curies(self) -> CurieDatabase:
-        curies_dict = read_json_datafile('app_meta_data/curies.json')
+        curies_dict = read_json_datafile('curies.json')
         self.curies_db = CurieDatabase(curies=curies_dict)
 
 
@@ -61,7 +61,7 @@ class TrapiInterface:
         """
         Returns the meta knowledge graph for this app
         """
-        metakg_dict = read_json_datafile('app_meta_data/meta_knowledge_graph.json')
+        metakg_dict = read_json_datafile('meta_knowledge_graph.json')
         return MetaKnowledgeGraph.load(
             self.trapi_version,
             None,
@@ -73,7 +73,7 @@ class TrapiInterface:
         """
         Returns the conflation graph for this app
         """
-        conflation_map_dict = read_json_datafile('app_meta_data/conflation_map.json')
+        conflation_map_dict = read_json_datafile('conflation_map.json')
         return ConflationMap(conflation_map=conflation_map_dict)
 
     def get_conflation_map(self) -> ConflationMap:
