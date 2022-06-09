@@ -18,10 +18,10 @@ setup(
     data_files=[
         ('',
             [
-                'app_meta_data/conflation_map.json',
-                'app_meta_data/curies.json',
-                'app_meta_data/epc.json',
-                'app_meta_data/meta_knowledge_graph.json',
+                'gene_specificity/app_meta_data/conflation_map.json',
+                'gene_specificity/app_meta_data/curies.json',
+                'gene_specificity/app_meta_data/epc.json',
+                'gene_specificity/app_meta_data/meta_knowledge_graph.json',
                 ]
             )
         ],

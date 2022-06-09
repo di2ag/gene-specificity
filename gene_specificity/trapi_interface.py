@@ -1,10 +1,8 @@
 
 '''trapi interface'''
 from copy import copy
-import os
 import json
 import pkgutil
-import pkg_resources
 from typing import Tuple, Union
 
 from django.db.models import QuerySet
@@ -21,17 +19,6 @@ from trapi_model.knowledge_graph import KEdge, KNode
 from gene_specificity.models import SpecificityMeanGene, SpecificityMeanTissue
 from gene_specificity.trapi_exceptions import NoSupportedQueriesFound
 
-MODULE_PATH = os.path.dirname(os.path.abspath(__file__))
-
-def read_json_datafile(relpath):
-    abspath = os.path.join(MODULE_PATH, relpath)
-    # If the path exists just load it
-    if os.path.exists(abspath):
-        with open(abspath, 'r') as datafile:
-            return json.load(datafile)
-    # Else try to load from package resources
-    json_string = pkg_resources.resource_stream(__name__, relpath).read().decode()
-    return json.loads(json_string)
 
 class TrapiInterface:
     # type: ignore #noqa
@@ -40,44 +27,45 @@ class TrapiInterface:
         # Initialize interface level logger
         self.logger = TrapiLogger()
 
-        self._get_curies()
-        self.meta_knowledge_graph = self._get_meta_knowledge_graph()
-        self.conflation_map = self._get_conflation_map()
-
-
     def get_curies(self) -> CurieDatabase:
-        self._get_curies()
-        return self.curies_db
+        return self._read_curies_file()
 
-    def _get_curies(self) -> CurieDatabase:
-        curies_dict = read_json_datafile('curies.json')
-        self.curies_db = CurieDatabase(curies=curies_dict)
-
+    def _read_curies_file(self) -> CurieDatabase:
+        curies_bytes: bytes = pkgutil.get_data(
+            'gene_specificity',
+            'app_meta_data/curies.json'
+        )  # type: ignore
+        curies_str = curies_bytes.decode('utf-8')
+        curies_json = json.loads(curies_str)
+        curies = CurieDatabase(curies_json)
+        return curies
 
     def get_meta_knowledge_graph(self) -> MetaKnowledgeGraph:
-        return self.meta_knowledge_graph
+        return self._read_meta_knowledge_graph()
 
-    def _get_meta_knowledge_graph(self) -> MetaKnowledgeGraph:
-        """
-        Returns the meta knowledge graph for this app
-        """
-        metakg_dict = read_json_datafile('meta_knowledge_graph.json')
-        return MetaKnowledgeGraph.load(
-            self.trapi_version,
-            None,
-            meta_knowledge_graph=metakg_dict,
-        )
+    def _read_meta_knowledge_graph(self) -> MetaKnowledgeGraph:
+        meta_kg_bytes: bytes = pkgutil.get_data(
+            'gene_specificity',
+            'app_meta_data/meta_knowledge_graph.json'
+        )  # type: ignore
+        meta_kg_str = meta_kg_bytes.decode('utf-8')
+        meta_kg_json = json.loads(meta_kg_str)
+        meta_kg = MetaKnowledgeGraph.load(  # type: ignore
+            self.trapi_version, None, meta_kg_json)  # type: ignore
         return meta_kg
 
-    def _get_conflation_map(self) -> ConflationMap:
-        """
-        Returns the conflation graph for this app
-        """
-        conflation_map_dict = read_json_datafile('conflation_map.json')
-        return ConflationMap(conflation_map=conflation_map_dict)
+    def _read_conflation_map(self) -> ConflationMap:
+        conflation_map_bytes: bytes = pkgutil.get_data(
+            'gene_specificity',
+            'app_meta_data/conflation_map.json'
+        )  # type: ignore
+        conflation_map_str = conflation_map_bytes.decode('utf-8')
+        conflation_map_json = json.loads(conflation_map_str)
+        conflation_map = ConflationMap(conflation_map_json)
+        return conflation_map
 
     def get_conflation_map(self) -> ConflationMap:
-        return self.conflation_map
+        return self._read_conflation_map()
 
     def get_name(self) -> str:
         return 'gene_specificity'
