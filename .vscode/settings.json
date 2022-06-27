@@ -112,5 +112,5 @@
         "ZBTB"
     ],
     "workbench.startupEditor": "readme",
-    "python.languageServer": "Pylance",
+    "workbench.editor.enablePreview": false,
 }
