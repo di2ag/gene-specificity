@@ -6,9 +6,9 @@ import unittest
 import requests
 
 from trapi_model.query import Query
-#LOCAL_URL = 'http://localhost:8000'
+LOCAL_URL = 'http://localhost:8000'
 #LOCAL_URL = 'http://localhost:80'
-LOCAL_URL = 'http://chp-dev.thayer.dartmouth.edu'
+#LOCAL_URL = 'http://chp-dev.thayer.dartmouth.edu'
 
 MODULE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -57,6 +57,15 @@ class TestChpLearn(unittest.TestCase):
 
     def test_baseline_queries(self):
         with open(os.path.join(MODULE_DIR, self.relpath_to_test_queries, 'test_queries.json'), 'rb') as f_:
+            queries = json.load(f_)
+        url = LOCAL_URL + self.query_endpoint
+        for query in queries:
+            resp, status = self._post(url, query)
+            # Print out at your own warning
+            self._print_query(resp)
+
+    def test_bad_curies_and_not_wildcard(self):
+        with open(os.path.join(MODULE_DIR, self.relpath_to_test_queries, 'bad_curies.json'), 'rb') as f_:
             queries = json.load(f_)
         url = LOCAL_URL + self.query_endpoint
         for query in queries:

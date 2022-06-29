@@ -18,8 +18,6 @@ from trapi_model.query_graph import QNode  # type: ignore
 from trapi_model.knowledge_graph import KEdge, KNode
 
 from gene_specificity.models import SpecificityMeanGene, SpecificityMeanTissue
-from gene_specificity.trapi_exceptions import NoSupportedQueriesFound
-
 
 class TrapiInterface:
     # type: ignore #noqa
@@ -71,6 +69,11 @@ class TrapiInterface:
     def get_name(self) -> str:
         return 'gene_specificity'
 
+    def _return_no_result(self, query, message):
+        resp = query.get_copy()
+        resp.logger.info(message)
+        return resp
+
     def get_response(self, query: Query):  # type: ignore
         response_object: Query = query.get_copy()
 
@@ -90,50 +93,54 @@ class TrapiInterface:
         qObject_categories = [category.get_curie()
                               for category in q_object_node.categories]  # type: ignore
 
+        if not self.is_wild_card(q_subject_node, q_object_node):
+            return self._return_no_result(query, 'gene_specificity app can not handle curie formation. App only supports fill operation')
+
         # if true then subject node is the fill node
         if q_subject_node.ids is None:
             curie = q_object_node.ids[0]
             subject_wildcard = True
+            if curie not in self.get_curies().to_dict()[q_object_node.categories[0].get_curie()]:
+                return self._return_no_result(query, '{} curie not supported in gene_specificity app'.format(curie))
         # else object node is fill
         else:
             curie = q_subject_node.ids[0]
             subject_wildcard=False
+            if curie not in self.get_curies().to_dict()[q_subject_node.categories[0].get_curie()]:
+                return self._return_no_result(query, '{} curie not supported in gene_specificity app'.format(curie))
+
 
         # TODO: this if statement is a temp fix due to an error in the data
         if "ENSEMBL" in curie:
             curie = curie.split(':')[1]
 
         # determine if query is wildcard
-        if self.is_wild_card(q_subject_node, q_object_node):
-            if "biolink:Gene" in qSubject_categories and\
-                "biolink:GrossAnatomicalStructure" in qObject_categories and\
-                    "biolink:expressed_in" in predicates:
-                if subject_wildcard:
-                    results: QuerySet = SpecificityMeanTissue.objects.filter(
-                        tissue_curie=curie).reverse()
-                else:
-                    results: QuerySet = SpecificityMeanGene.objects.filter(
-                        gene_curie=curie).reverse()
-            elif "biolink:GrossAnatomicalStructure" in qSubject_categories and\
-                "biolink:Gene" in qObject_categories and\
-                    "biolink:expresses" in predicates:
-                if subject_wildcard:
-                    results: QuerySet = SpecificityMeanGene.objects.filter(
-                        gene_curie=curie).reverse()
-                else:
-                    results: QuerySet = SpecificityMeanTissue.objects.filter(
-                        tissue_curie=curie).reverse()
+        if "biolink:Gene" in qSubject_categories and\
+            "biolink:GrossAnatomicalStructure" in qObject_categories and\
+                "biolink:expressed_in" in predicates:
+            if subject_wildcard:
+                results: QuerySet = SpecificityMeanTissue.objects.filter(
+                    tissue_curie=curie).reverse()
             else:
-                raise NoSupportedQueriesFound
+                results: QuerySet = SpecificityMeanGene.objects.filter(
+                    gene_curie=curie).reverse()
+        elif "biolink:GrossAnatomicalStructure" in qSubject_categories and\
+            "biolink:Gene" in qObject_categories and\
+                "biolink:expresses" in predicates:
+            if subject_wildcard:
+                results: QuerySet = SpecificityMeanGene.objects.filter(
+                    gene_curie=curie).reverse()
+            else:
+                results: QuerySet = SpecificityMeanTissue.objects.filter(
+                    tissue_curie=curie).reverse()
+        else:
+            return self._return_no_result(query, 'gene_specificity app can not handle curie formation. App only supports fill operation')
+
         # type: ignore
         max_results = query.max_results
         if max_results is not None:
             results = results[:max_results]  # type: ignore
         return self._build_response(query, q_subject_node, q_object_node, subject_wildcard, results, response_object)
-        #if subject_wildcard:
-        #    return self._build_response(query, q_subject_node, results, response_object)  # type: ignore
-        #else:
-        #    return self._build_response(query, q_object_node, results, response_object)  # type: ignore
 
     def _build_response(self, query: Query, q_subject_node: QNode, q_object_node: QNode, subject_wildcard: bool, data_base_results: QuerySet, response_object: Query):
         response_results = query.message.results
@@ -250,7 +257,9 @@ class TrapiInterface:
         return response_object
 
     def is_wild_card(self, subject_node: QNode, object_node: QNode):  # type: ignore
-        if subject_node.ids is None or object_node.ids is None:  # type: ignore
+        if subject_node.ids is None and object_node.ids is not None:  # type: ignore
+            return True
+        elif subject_node.ids is not None and object_node.ids is None:
             return True
         return False
 
