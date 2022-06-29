@@ -1,3 +1,4 @@
+# TODO: 
 
 '''trapi interface'''
 from copy import copy
@@ -75,98 +76,130 @@ class TrapiInterface:
 
         # Get the edge object (there's only one)
         qedges: QEdge = query.message.query_graph.edges  # type: ignore
-        qedge: QEdge = qedges['e0']  # type: ignore
+        edge_id = list(qedges.keys())[0]
+        qedge: QEdge = qedges[edge_id]  # type: ignore
         predicates = [predicate.get_curie()
                       for predicate in qedge.predicates]  # type: ignore
+
         # Get q_subject and q_object nodes
-        # type: ignore
         q_subject_node: QNode = query.message.query_graph.nodes[qedge.subject]
-        q_subject_id: str = q_subject_node.ids[0]  # type: ignore
-
-        # TODO: this if statement is a temp fix due to an error in the data
-        if "ENSEMBL" in q_subject_id:
-            q_subject_id = q_subject_id.split(':')[1]
-
-        # type: ignore
-        q_object: QNode = query.message.query_graph.nodes[qedge.object]
+        q_object_node: QNode = query.message.query_graph.nodes[qedge.object]
 
         qSubject_categories = [category.get_curie()
                                for category in q_subject_node.categories]  # type: ignore
         qObject_categories = [category.get_curie()
-                              for category in q_object.categories]  # type: ignore
+                              for category in q_object_node.categories]  # type: ignore
+
+        # if true then subject node is the fill node
+        if q_subject_node.ids is None:
+            curie = q_object_node.ids[0]
+            subject_wildcard = True
+        # else object node is fill
+        else:
+            curie = q_subject_node.ids[0]
+            subject_wildcard=False
+
+        # TODO: this if statement is a temp fix due to an error in the data
+        if "ENSEMBL" in curie:
+            curie = curie.split(':')[1]
 
         # determine if query is wildcard
-        if self.is_wild_card(q_subject_node, q_object):
+        if self.is_wild_card(q_subject_node, q_object_node):
             if "biolink:Gene" in qSubject_categories and\
                 "biolink:GrossAnatomicalStructure" in qObject_categories and\
                     "biolink:expressed_in" in predicates:
-                results: QuerySet = SpecificityMeanGene.objects.filter(
-                    gene_curie=q_subject_id).reverse()
+                if subject_wildcard:
+                    results: QuerySet = SpecificityMeanTissue.objects.filter(
+                        tissue_curie=curie).reverse()
+                else:
+                    results: QuerySet = SpecificityMeanGene.objects.filter(
+                        gene_curie=curie).reverse()
             elif "biolink:GrossAnatomicalStructure" in qSubject_categories and\
                 "biolink:Gene" in qObject_categories and\
                     "biolink:expresses" in predicates:
-                results: QuerySet = SpecificityMeanTissue.objects.filter(
-                    tissue_curie=q_subject_id).reverse()
+                if subject_wildcard:
+                    results: QuerySet = SpecificityMeanGene.objects.filter(
+                        gene_curie=curie).reverse()
+                else:
+                    results: QuerySet = SpecificityMeanTissue.objects.filter(
+                        tissue_curie=curie).reverse()
             else:
                 raise NoSupportedQueriesFound
         # type: ignore
         max_results = query.max_results
         if max_results is not None:
             results = results[:max_results]  # type: ignore
-        return self._build_response(query, q_subject_node, results, response_object)  # type: ignore
+        return self._build_response(query, q_subject_node, q_object_node, subject_wildcard, results, response_object)
+        #if subject_wildcard:
+        #    return self._build_response(query, q_subject_node, results, response_object)  # type: ignore
+        #else:
+        #    return self._build_response(query, q_object_node, results, response_object)  # type: ignore
 
-    def _build_response(self, query: Query, q_subject_node: QNode, data_base_results: QuerySet, response_object: Query):
+    def _build_response(self, query: Query, q_subject_node: QNode, q_object_node: QNode, subject_wildcard: bool, data_base_results: QuerySet, response_object: Query):
         response_results = query.message.results
         node_bindings = {}
         edge_bindings = {}
 
         knowledge_graph = query.message.knowledge_graph
-        # add the subject from the query graph
-        subject_name: str = self.get_curies().to_dict(
-        )[q_subject_node.categories[0].get_curie()][q_subject_node.ids[0]][0]  # type: ignore
-
-        knode_subject_curie: str = knowledge_graph.add_node(
-            q_subject_node.ids[0], subject_name, q_subject_node.categories[0].get_curie())  # type: ignore
+        # add non_fill node to kg
+        if subject_wildcard:
+            curie = q_object_node.ids[0].split(':')
+            if 'ENSG' in curie:
+                curie = curie.split(':')
+            non_fill_node_name: str = self.get_curies().to_dict()[q_object_node.categories[0].get_curie()][q_object_node.ids[0]][0]
+            non_fill_node_curie: str = knowledge_graph.add_node(q_object_node.ids[0], non_fill_node_name, q_object_node.categories[0].get_curie())
+            fill_node = q_subject_node
+            non_fill_node = q_object_node
+        else:
+            curie = q_subject_node.ids[0].split(':')
+            if 'ENSG' in curie:
+                curie = curie.split(':')
+            non_fill_node_name: str = self.get_curies().to_dict()[q_subject_node.categories[0].get_curie()][q_subject_node.ids[0]][0]
+            non_fill_node_curie: str = knowledge_graph.add_node(q_subject_node.ids[0], non_fill_node_name, q_subject_node.categories[0].get_curie())
+            fill_node = q_object_node
+            non_fill_node = q_subject_node
 
         for k, v in query.message.query_graph.nodes.items():
-            if v == q_subject_node:
-                subject_key = k
-                break
+            if v == non_fill_node:
+                non_fill_key = k
+            elif v == fill_node:
+                fill_key = k
 
-        node_bindings.update({subject_key: [knode_subject_curie]})  # type: ignore
+        node_bindings.update({non_fill_key: [non_fill_node_curie]})  # type: ignore
 
-        qnode: QNode
-        for qnode in query.message.query_graph.nodes:
-            qnode = query.message.query_graph.nodes[qnode]
-            if qnode != q_subject_node:
-                wildcard_node_key = query.message.query_graph.find_nodes(  # type: ignore
-                    qnode.categories)[0]
         for result in data_base_results:  # type: ignore
             # type: ignore
             result: Tuple[str, str, float] = result.get_result()  # type: ignore
-            object_id = result[0]
-            object_categories = result[1]
+            fill_id = result[0]
+            fill_categories = result[1]
             specificity_mean = result[2]
+            if 'ENSG' in fill_id:
+                fill_id = 'ENSEMBL:'+fill_id
+            fill_name: str = self.get_curies().to_dict()[fill_categories][fill_id][0]  # type: ignore
+            fill_node_curie: str = knowledge_graph.add_node(
+                fill_id, fill_name, fill_categories)  # type: ignore
 
-            object_name: str = self.get_curies().to_dict(
-            )[object_categories][object_id][0]  # type: ignore
-            knode_object_curie: str = knowledge_graph.add_node(
-                object_id, object_name, object_categories)  # type: ignore
-            
             node_bindings.update(
-                {wildcard_node_key: [knode_object_curie]})  # type: ignore
+                {fill_key: [fill_node_curie]})  # type: ignore
 
             subject_categories = [category.get_curie()
                         for category in q_subject_node.categories]  # type: ignore
             predicate_str: str = ''
             if "biolink:GrossAnatomicalStructure" in subject_categories:  # type: ignore
-                predicate_str = "biolink:expressed_in"
-            else:
                 predicate_str = "biolink:expresses"
-            kedge_key: KEdge = knowledge_graph.add_edge(  # type: ignore
-                k_subject=knode_subject_curie,
-                k_object=knode_object_curie,
-                predicate=predicate_str)
+            else:
+                predicate_str = "biolink:expressed_in"
+
+            if subject_wildcard:
+                kedge_key: KEdge = knowledge_graph.add_edge(  # type: ignore
+                    k_subject=fill_node_curie,
+                    k_object=non_fill_node_curie,
+                    predicate=predicate_str)
+            else:
+                kedge_key: KEdge = knowledge_graph.add_edge(  # type: ignore
+                    k_subject=non_fill_node_curie,
+                    k_object=fill_node_curie,
+                    predicate=predicate_str)
 
             qedge_key = list(query.message.query_graph.edges.keys())[0]  # type: ignore
             edge_bindings.update({qedge_key: [kedge_key]})  # type: ignore

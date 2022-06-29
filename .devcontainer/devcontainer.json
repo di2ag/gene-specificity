@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.234.0/containers/python-3
 {
-	"name": "Python 3",
+	"name": "gene specificity environment",
 	"build": {
 		"dockerfile": "Dockerfile",
 		"context": "..",
@@ -40,9 +40,13 @@
 	"extensions": [
 		"streetsidesoftware.code-spell-checker",
 		"ms-python.python",
-		"ms-python.vscode-pylance",
 		"patrick91.python-dependencies-vscode",
-		"tht13.rst-vscode"
+		"tht13.rst-vscode",
+		"GitHub.vscode-pull-request-github",
+		"humao.rest-client",
+		"rangav.vscode-thunder-client",
+		"tabeyti.jenkins-jack",
+		"ms-vsliveshare.vsliveshare-pack"
 	],
  
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
@@ -51,7 +55,7 @@
 	],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"onCreateCommand": "pip install -r /workspace/requirements.txt && pip install -r /workspace/requirements-dev.txt && pip install -e .",
+	"onCreateCommand": "",
 
 	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	// "remoteUser": "vscode",
