@@ -6,9 +6,9 @@ import unittest
 import requests
 
 from trapi_model.query import Query
-LOCAL_URL = 'http://localhost:8000'
+#LOCAL_URL = 'http://localhost:8000'
 #LOCAL_URL = 'http://localhost:80'
-#LOCAL_URL = 'http://chp-dev.thayer.dartmouth.edu'
+LOCAL_URL = 'http://chp-dev.thayer.dartmouth.edu'
 
 MODULE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -47,11 +47,11 @@ class TestChpLearn(unittest.TestCase):
     def _print_query(query):
         print(json.dumps(query, indent=2))
 
-    def est_curies(self):
+    def test_curies(self):
         url = LOCAL_URL + self.curies_endpoint
         resp = self._get(url)
 
-    def est_meta_knowledge_graph(self):
+    def test_meta_knowledge_graph(self):
         url = LOCAL_URL + self.meta_knowledge_graph_endpoint
         resp = self._get(url)
 
