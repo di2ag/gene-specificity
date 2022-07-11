@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "gene-specificity"
+version = "0.1.0"
+description = "gene specificity lookup app for Connections Hypothesis Provider"
+authors = ["veenhouse <luke.veenhuis@gmail.com>"]
+license = "Apache-2.0"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Django = "^4.0.6"
+djangorestframework = "^3.13.1"
+django-extensions = "^3.1.5"
+trapi-model = {git = "https://github.com/di2ag/trapi_model.git"}
+chp-utils = {git = "https://github.com/di2ag/chp_utils.git"}
+
+[tool.poetry.dev-dependencies]
+pylama = "^8.3.8"
+pytest = "^7.1.2"
+pytest-django = "^4.5.2"
+pytest-xdist = "^2.5.0"
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

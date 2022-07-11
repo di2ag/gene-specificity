@@ -113,4 +113,6 @@
     ],
     "workbench.startupEditor": "readme",
     "workbench.editor.enablePreview": false,
+    "python.analysis.typeCheckingMode": "strict",
+    "python.defaultInterpreterPath": "${workspaceFolder}/.venv/",
 }
