@@ -1,9 +1,20 @@
 [tool.poetry]
-name = "gene-specificity"
+name = "gene_specificity"
 version = "0.1.0"
 description = "gene specificity lookup app for Connections Hypothesis Provider"
 authors = ["veenhouse <luke.veenhuis@gmail.com>"]
 license = "Apache-2.0"
+maintainers = [
+  "Luke Veenhuis <luke.veenhuis@gmail.com>",
+  "Greg Hyde <gregory.m.hyde.th@dartmouth.edu>",
+  "Anthony Ragazzi <anthony.p.ragazzi.th@dartmouth.edu>",
+  "Chase Yakaboski <chase.th@dartmouth.edu>"
+]
+packages = [
+  {include = "gene_specificity"}
+]
+readme = "README.md"
+repository = "https://github.com/di2ag/trapi_model.git"
 
 [tool.poetry.dependencies]
 python = "^3.8"
@@ -19,7 +30,36 @@ pytest = "^7.1.2"
 pytest-django = "^4.5.2"
 pytest-xdist = "^2.5.0"
 
-
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+exclude = '''  # Specify the files/dirs that should be ignored by the black formatter
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+include = '\.pyi?$'
+line-length = 88 # Specify the line length
+target-version = ['py38'] # Specify your Python version
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+version = "1.0.0"
+version_files = [
+    "pyproject.toml:version",
+    "__version__.py"
+]
+
+[flake8]
+exclude = ".git,__pycache__,docs/source/conf.py,old,build,dist"
