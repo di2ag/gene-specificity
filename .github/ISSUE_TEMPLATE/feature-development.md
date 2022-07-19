@@ -2,7 +2,7 @@
 name: Feature Development
 about: This issue is for tracking the development of a new feature or feature change
 title: ''
-labels: feature development
+labels: ''
 assignees: ''
 
 ---
