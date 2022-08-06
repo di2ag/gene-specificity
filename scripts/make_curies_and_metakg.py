@@ -18,7 +18,7 @@ with open(os.path.join(CURIE_PATH,GENES)) as gene_file:
         curie_to_gene[row[1]] = row[0]
 
 # load in gene specificity file. Keys represent the genes we consider in this app.
-with open('/home/public/data/ncats/tissue_specificity/specificity_mean_genePK.json') as f:
+with open('/home/public/data/ncats/tissue_specificity/updated_curies/specificity_mean_genePK.json') as f:
     spec_data = json.load(f)
     app_specific_genes = list(spec_data.keys())
 

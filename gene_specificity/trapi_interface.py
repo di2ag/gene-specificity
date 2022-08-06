@@ -146,7 +146,7 @@ class TrapiInterface:
         response_results = query.message.results
         node_bindings = {}
         edge_bindings = {}
-
+        print(query)
         knowledge_graph = query.message.knowledge_graph
         # add non_fill node to kg
         if subject_wildcard:
