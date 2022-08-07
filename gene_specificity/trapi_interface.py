@@ -149,11 +149,13 @@ class TrapiInterface:
 
         logs = query.logger.to_dict()
         ontological_conflate_term = None
+        print(logs)
         if len(logs) > 0:
             for log_dict in logs:
                 info_message = log_dict['message']
                 if 'Ontologically expanded' in info_message:
                     ontological_conflate_term = info_message.split(' ')[2]
+        print(ontological_conflate_term)
 
         knowledge_graph = query.message.knowledge_graph
         # add non_fill node to kg
