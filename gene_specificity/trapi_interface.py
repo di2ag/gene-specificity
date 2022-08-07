@@ -147,6 +147,14 @@ class TrapiInterface:
         node_bindings = {}
         edge_bindings = {}
 
+        logs = query.logger.to_dict()
+        ontological_conflate_term = None
+        if len(logs) > 0:
+            for log_dict in logs:
+                info_message = log_dict['message']
+                if 'Ontologically expanded' in info_message:
+                    ontological_conflate_term = info_message.split(' ')[2]
+
         knowledge_graph = query.message.knowledge_graph
         # add non_fill node to kg
         if subject_wildcard:
@@ -172,7 +180,8 @@ class TrapiInterface:
             elif v == fill_node:
                 fill_key = k
 
-        node_bindings.update({non_fill_key: [non_fill_node_curie]})  # type: ignore
+        node_bindings.update({non_fill_key: [non_fill_node_curie],
+                              'query_id': ontological_conflate_term})  # type: ignore
 
         for result in data_base_results:  # type: ignore
             # type: ignore
