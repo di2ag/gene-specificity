@@ -180,16 +180,13 @@ class TrapiInterface:
             elif v == fill_node:
                 fill_key = k
 
-        node_bindings.update({non_fill_key: [non_fill_node_curie],
-                              'query_id': ontological_conflate_term})  # type: ignore
-
         for result in data_base_results:  # type: ignore
 
             node_bindings = {}
             edge_bindings = {}
 
-            node_bindings.update({non_fill_key: [non_fill_node_curie],
-                              'query_id': ontological_conflate_term})
+            node_bindings.update({non_fill_key: {'ids' : [non_fill_node_curie],
+                                                 'query_id' : ontological_conflate_term}})
 
             # type: ignore
             result: Tuple[str, str, float] = result.get_result()  # type: ignore
