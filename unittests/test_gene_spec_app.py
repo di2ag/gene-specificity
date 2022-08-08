@@ -47,7 +47,7 @@ class TestChpLearn(unittest.TestCase):
     def _print_query(query):
         print(json.dumps(query, indent=2))
 
-    def test_curies(self):
+    def 	est_curies(self):
         url = LOCAL_URL + self.curies_endpoint
         resp = self._get(url)
 
