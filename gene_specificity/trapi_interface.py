@@ -139,7 +139,7 @@ class TrapiInterface:
         # type: ignore
         #max_results = query.max_results
         #if max_results is not None:
-        results = results[:200]  # type: ignore
+        results = results[:20]  # type: ignore
         return self._build_response(query, q_subject_node, q_object_node, subject_wildcard, results, response_object)
 
     def _build_response(self, query: Query, q_subject_node: QNode, q_object_node: QNode, subject_wildcard: bool, data_base_results: QuerySet, response_object: Query):
@@ -245,7 +245,7 @@ class TrapiInterface:
                 value="infores:connections-hypothesis",
                 value_type_id="biolink:InformationResource",
                 attribute_source="infores:connections-hypothesis",
-                value_url="http://chp.thayer.dartmouth.edu",
+                value_url="https://github.com/di2ag/gene-specificity",
                 description="The Connections Hypothesis Provider from NCATS Translator.",
             )
 
@@ -256,7 +256,7 @@ class TrapiInterface:
                 value_type_id="biolink:InformationResource",
                 attribute_source="infores:gtex",
                 value_url="https://gtexportal.org/home/",
-                description="The Genotype-Tissue Expression (GTEx)"
+                description="The Genotype-Tissue Expression (GTEx) project"
             )
 
         # response_object: Query = copy(query)
