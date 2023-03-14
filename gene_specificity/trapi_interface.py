@@ -179,7 +179,7 @@ class TrapiInterface:
                 fill_key = k
 
         for result in data_base_results:  # type: ignore
-            if result[2] < 1: #threshold
+            if result[2].specificity_mean < 1: #threshold
                 continue
             node_bindings = {}
             edge_bindings = {}
