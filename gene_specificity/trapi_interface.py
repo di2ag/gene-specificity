@@ -137,9 +137,9 @@ class TrapiInterface:
             return self._return_no_result(query, 'gene_specificity app can not handle curie formation. App only supports fill operation')
 
         # type: ignore
-        max_results = query.max_results
-        if max_results is not None:
-            results = results[:max_results]  # type: ignore
+        #max_results = query.max_results
+        #if max_results is not None:
+        results = results[:20]  # type: ignore
         return self._build_response(query, q_subject_node, q_object_node, subject_wildcard, results, response_object)
 
     def _build_response(self, query: Query, q_subject_node: QNode, q_object_node: QNode, subject_wildcard: bool, data_base_results: QuerySet, response_object: Query):
@@ -180,14 +180,17 @@ class TrapiInterface:
 
         for result in data_base_results:  # type: ignore
 
+            # type: ignore
+            result: Tuple[str, str, float] = result.get_result()  # type: ignore
+
+            if result[2] < 1: #threshold
+                continue
             node_bindings = {}
             edge_bindings = {}
 
             node_bindings.update({non_fill_key: {'ids' : [non_fill_node_curie],
                                                  'query_id' : ontological_conflate_term}})
 
-            # type: ignore
-            result: Tuple[str, str, float] = result.get_result()  # type: ignore
             fill_id = result[0]
             fill_categories = result[1]
             specificity_mean = result[2]
@@ -232,11 +235,7 @@ class TrapiInterface:
                 value_type_id="biolink:has_evidence",
                 attribute_source=None,
                 value_url=None,
-                description="Specificity value between a tissue and gene indicates a gene's RNA\
-                    Sequence expression specificity to that tissue. Values closer to 0 indicate no\
-                        expression specificity and values closer to 5.755 or log_2(54) (54 being\
-                            the number of tissues used in this analysis) indicate complete\
-                                specificity."
+                description="Specificity value between a tissue and gene indicates a gene's RNA Sequence expression specificity to that tissue. Values closer to 0 indicate no expression specificity and values closer to 5.755 or log_2(54) (54 being the number of tissues used in this analysis) indicate complete specificity."
             )
 
             # add epc
@@ -246,20 +245,19 @@ class TrapiInterface:
                 value="infores:connections-hypothesis",
                 value_type_id="biolink:InformationResource",
                 attribute_source="infores:connections-hypothesis",
-                value_url="http://chp.thayer.dartmouth.edu",
+                value_url="https://github.com/di2ag/gene-specificity",
                 description="The Connections Hypothesis Provider from NCATS Translator.",
             )
 
             kedge.add_attribute(
-                attribute_type_id="biolink:support_data_source",
+                attribute_type_id="biolink:supporting_data_source",
                 original_attribute_name=None,
-                value="infores:tcga",
+                value="infores:gtex",
                 value_type_id="biolink:InformationResource",
-                attribute_source="infores:gdc",
+                attribute_source="infores:gtex",
                 value_url="https://gtexportal.org/home/",
-                description="The Cancer Genome Atlas provided by the GDC Data Portal."
+                description="The Genotype-Tissue Expression (GTEx) project"
             )
-
 
         # response_object: Query = copy(query)
 
