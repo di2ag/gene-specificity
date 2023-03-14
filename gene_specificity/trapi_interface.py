@@ -179,7 +179,11 @@ class TrapiInterface:
                 fill_key = k
 
         for result in data_base_results:  # type: ignore
-            if result[2].specificity_mean < 1: #threshold
+
+            # type: ignore
+            result: Tuple[str, str, float] = result.get_result()  # type: ignore
+
+            if result[2] < 1: #threshold
                 continue
             node_bindings = {}
             edge_bindings = {}
@@ -187,8 +191,6 @@ class TrapiInterface:
             node_bindings.update({non_fill_key: {'ids' : [non_fill_node_curie],
                                                  'query_id' : ontological_conflate_term}})
 
-            # type: ignore
-            result: Tuple[str, str, float] = result.get_result()  # type: ignore
             fill_id = result[0]
             fill_categories = result[1]
             specificity_mean = result[2]
