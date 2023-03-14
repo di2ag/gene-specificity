@@ -233,11 +233,7 @@ class TrapiInterface:
                 value_type_id="biolink:has_evidence",
                 attribute_source=None,
                 value_url=None,
-                description="Specificity value between a tissue and gene indicates a gene's RNA\
-                    Sequence expression specificity to that tissue. Values closer to 0 indicate no\
-                        expression specificity and values closer to 5.755 or log_2(54) (54 being\
-                            the number of tissues used in this analysis) indicate complete\
-                                specificity."
+                description="Specificity value between a tissue and gene indicates a gene's RNA Sequence expression specificity to that tissue. Values closer to 0 indicate no expression specificity and values closer to 5.755 or log_2(54) (54 being the number of tissues used in this analysis) indicate complete specificity."
             )
 
             # add epc
