@@ -137,9 +137,9 @@ class TrapiInterface:
             return self._return_no_result(query, 'gene_specificity app can not handle curie formation. App only supports fill operation')
 
         # type: ignore
-        max_results = query.max_results
-        if max_results is not None:
-            results = results[:max_results]  # type: ignore
+        #max_results = query.max_results
+        #if max_results is not None:
+        results = results[:200]  # type: ignore
         return self._build_response(query, q_subject_node, q_object_node, subject_wildcard, results, response_object)
 
     def _build_response(self, query: Query, q_subject_node: QNode, q_object_node: QNode, subject_wildcard: bool, data_base_results: QuerySet, response_object: Query):
@@ -179,7 +179,8 @@ class TrapiInterface:
                 fill_key = k
 
         for result in data_base_results:  # type: ignore
-
+            if result[2] < 1: #threshold
+                continue
             node_bindings = {}
             edge_bindings = {}
 
@@ -251,15 +252,14 @@ class TrapiInterface:
             )
 
             kedge.add_attribute(
-                attribute_type_id="biolink:support_data_source",
+                attribute_type_id="biolink:supporting_data_source",
                 original_attribute_name=None,
-                value="infores:tcga",
+                value="infores:gtex",
                 value_type_id="biolink:InformationResource",
-                attribute_source="infores:gdc",
+                attribute_source="infores:gtex",
                 value_url="https://gtexportal.org/home/",
-                description="The Cancer Genome Atlas provided by the GDC Data Portal."
+                description="The Genotype-Tissue Expression (GTEx)"
             )
-
 
         # response_object: Query = copy(query)
 

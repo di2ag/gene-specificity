@@ -11,10 +11,10 @@
     {
         "attribute_type_id": "biolink:supporting_data_source",
         "original_attribute_name": null,
-        "value": "infores:tcga",
+        "value": "infores:gtex",
         "value_type_id": "biolink:InformationResource",
-        "attribute_source": "infores:gdc",
+        "attribute_source": "infores:gtex",
         "value_url": "https://gtexportal.org/home/",
-        "description": "The Cancer Genome Atlas provided by the GDC Data Portal."
+        "description": "The Genotype-Tissue Expression (GTEx) project"
     }
 ]
