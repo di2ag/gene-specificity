@@ -183,7 +183,7 @@ class TrapiInterface:
             # type: ignore
             result: Tuple[str, str, float] = result.get_result()  # type: ignore
 
-            if result[2] < 1: #threshold
+            if 'ENSG' in result[0] and result[2] < 1: #threshold
                 continue
             node_bindings = {}
             edge_bindings = {}
