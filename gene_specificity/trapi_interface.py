@@ -139,7 +139,7 @@ class TrapiInterface:
         # type: ignore
         #max_results = query.max_results
         #if max_results is not None:
-        results = results[:20]  # type: ignore
+        results = results[:10]  # type: ignore
         return self._build_response(query, q_subject_node, q_object_node, subject_wildcard, results, response_object)
 
     def _build_response(self, query: Query, q_subject_node: QNode, q_object_node: QNode, subject_wildcard: bool, data_base_results: QuerySet, response_object: Query):
