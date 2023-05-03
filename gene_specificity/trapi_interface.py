@@ -249,14 +249,20 @@ class TrapiInterface:
                 description="The Connections Hypothesis Provider from NCATS Translator.",
             )
 
-            kedge.add_attribute(
-                attribute_type_id="biolink:supporting_data_source",
-                original_attribute_name=None,
-                value="infores:gtex",
-                value_type_id="biolink:InformationResource",
-                attribute_source="infores:gtex",
-                value_url="https://gtexportal.org/home/",
-                description="The Genotype-Tissue Expression (GTEx) project"
+            kedge.add_source(
+                resource_id='infores:connections-hypothesis',
+                resource_role='primary_knowledge_source',
+                upstream_source=id=None,
+                source_record_urls=None,
+                description='The Connections Hypothesis Provider from NCATS Translator.',
+            )
+
+            kedge.add_source(
+                resource_id='infores:gtex',
+                resource_role='supporting_data_source',
+                upstream_source=id=None,
+                source_record_urls=None,
+                description='The Genotype-Tissue Expression (GTEx) project'
             )
 
         # response_object: Query = copy(query)
