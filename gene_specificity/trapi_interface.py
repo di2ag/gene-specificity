@@ -15,7 +15,7 @@ from trapi_model.meta_knowledge_graph import MetaKnowledgeGraph  # type: ignore
 from trapi_model.query import Query  # type: ignore
 from trapi_model.query_graph import QEdge  # type: ignore
 from trapi_model.query_graph import QNode  # type: ignore
-from trapi_model.knowledge_graph import KEdge, KNode
+from trapi_model.knowledge_graph import KEdge, KNode, Source
 
 from gene_specificity.models import SpecificityMeanGene, SpecificityMeanTissue
 
@@ -211,15 +211,34 @@ class TrapiInterface:
             else:
                 predicate_str = "biolink:expressed_in"
 
+            s_1 = Source(
+                resource_id='infores:connections-hypothesis',
+                resource_role='primary_knowledge_source',
+                upstream_source_id=None,
+                source_record_urls=None,
+                description='The Connections Hypothesis Provider from NCATS Translator.',
+            )
+            s_2 = Source(
+                resource_id='infores:gtex',
+                resource_role='supporting_data_source',
+                upstream_source_id=None,
+                source_record_urls=None,
+                description='The Genotype-Tissue Expression (GTEx) project'
+            )
+            sources = [s_1, s_2]
+
+
             if subject_wildcard:
                 kedge_key: KEdge = knowledge_graph.add_edge(  # type: ignore
                     k_subject=fill_node_curie,
                     k_object=non_fill_node_curie,
-                    predicate=predicate_str)
+                    sources=sources,
+                    predicate=predicate_str,)
             else:
                 kedge_key: KEdge = knowledge_graph.add_edge(  # type: ignore
                     k_subject=non_fill_node_curie,
                     k_object=fill_node_curie,
+                    sources=sources,
                     predicate=predicate_str)
 
             qedge_key = list(query.message.query_graph.edges.keys())[0]  # type: ignore
@@ -247,22 +266,6 @@ class TrapiInterface:
                 attribute_source="infores:connections-hypothesis",
                 value_url="https://github.com/di2ag/gene-specificity",
                 description="The Connections Hypothesis Provider from NCATS Translator.",
-            )
-
-            kedge.add_source(
-                resource_id='infores:connections-hypothesis',
-                resource_role='primary_knowledge_source',
-                upstream_source_id=None,
-                source_record_urls=None,
-                description='The Connections Hypothesis Provider from NCATS Translator.',
-            )
-
-            kedge.add_source(
-                resource_id='infores:gtex',
-                resource_role='supporting_data_source',
-                upstream_source_id=None,
-                source_record_urls=None,
-                description='The Genotype-Tissue Expression (GTEx) project'
             )
 
         # response_object: Query = copy(query)
