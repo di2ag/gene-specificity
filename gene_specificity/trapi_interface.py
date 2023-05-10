@@ -260,7 +260,7 @@ class TrapiInterface:
             kedge.add_source(
                 resource_id='infores:gtex',
                 resource_role='supporting_data_source',
-                upstream_source=id=None,
+                upstream_source_id=None,
                 source_record_urls=None,
                 description='The Genotype-Tissue Expression (GTEx) project'
             )
