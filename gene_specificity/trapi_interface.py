@@ -216,8 +216,6 @@ class TrapiInterface:
                 biolink_version = None,
                 resource_id='infores:connections-hypothesis',
                 resource_role='primary_knowledge_source',
-                upstream_source_id=None,
-                source_record_urls=None,
                 description='The Connections Hypothesis Provider from NCATS Translator.',
             )
             s_2 = Source(
@@ -225,8 +223,6 @@ class TrapiInterface:
                 biolink_version = None,
                 resource_id='infores:gtex',
                 resource_role='supporting_data_source',
-                upstream_source_id=None,
-                source_record_urls=None,
                 description='The Genotype-Tissue Expression (GTEx) project'
             )
             sources = [s_1, s_2]
