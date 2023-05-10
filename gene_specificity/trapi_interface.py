@@ -212,6 +212,8 @@ class TrapiInterface:
                 predicate_str = "biolink:expressed_in"
 
             s_1 = Source(
+                trapi_version = self.trapi_version,
+                biolink_version = None,
                 resource_id='infores:connections-hypothesis',
                 resource_role='primary_knowledge_source',
                 upstream_source_id=None,
@@ -219,6 +221,8 @@ class TrapiInterface:
                 description='The Connections Hypothesis Provider from NCATS Translator.',
             )
             s_2 = Source(
+                trapi_version = self.trapi_version,
+                biolink_version = None,
                 resource_id='infores:gtex',
                 resource_role='supporting_data_source',
                 upstream_source_id=None,
