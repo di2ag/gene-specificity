@@ -252,7 +252,7 @@ class TrapiInterface:
             kedge.add_source(
                 resource_id='infores:connections-hypothesis',
                 resource_role='primary_knowledge_source',
-                upstream_source=id=None,
+                upstream_source_id=None,
                 source_record_urls=None,
                 description='The Connections Hypothesis Provider from NCATS Translator.',
             )
