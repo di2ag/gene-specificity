@@ -4,7 +4,7 @@ from gene_specificity.apps import GeneSpecificityConfig
 from reasoner_pydantic import MetaKnowledgeGraph, Message
 from typing import TYPE_CHECKING, Union, List
 
-def get_app_config(query: Union[Query, None]) -> GeneSpecificityConfig:
+def get_app_config(message: Union[Message, None]) -> GeneSpecificityConfig:
     return GeneSpecificityConfig
 
 
