@@ -4,40 +4,32 @@
 from copy import copy
 import json
 import pkgutil
+import logging
 from typing import Tuple, Union
 
 from django.db.models import QuerySet
 
-from chp_utils.conflation import ConflationMap  # type: ignore
-from chp_utils.curie_database import CurieDatabase  # type: ignore
-from trapi_model.logger import Logger as TrapiLogger
-from trapi_model.meta_knowledge_graph import MetaKnowledgeGraph  # type: ignore
-from trapi_model.query import Query  # type: ignore
-from trapi_model.query_graph import QEdge  # type: ignore
-from trapi_model.query_graph import QNode  # type: ignore
-from trapi_model.knowledge_graph import KEdge, KNode, Source
+#from trapi_model.logger import Logger as TrapiLogger
+#from trapi_model.meta_knowledge_graph import MetaKnowledgeGraph  # type: ignore
+#from trapi_model.query import Query  # type: ignore
+#from trapi_model.query_graph import QEdge  # type: ignore
+#from trapi_model.query_graph import QNode  # type: ignore
+#from trapi_model.knowledge_graph import KEdge, KNode, Source
+from reasoner_pydantic import MetaKnowledgeGraph, Message
 
 from gene_specificity.models import SpecificityMeanGene, SpecificityMeanTissue
 
+# Setup logging
+logging.addLevelName(25, "NOTE")
+# Add a special logging function
+def note(self, message, *args, **kwargs):
+    self._log(25, message, args, kwargs)
+logging.Logger.note = note
+logger = logging.getLogger(__name__)
+
 class TrapiInterface:
-    # type: ignore #noqa
-    def __init__(self, trapi_version: str = '1.2'):
-        self.trapi_version = trapi_version  # type: ignore #noqa
-        # Initialize interface level logger
-        self.logger = TrapiLogger()
-
-    def get_curies(self) -> CurieDatabase:
-        return self._read_curies_file()
-
-    def _read_curies_file(self) -> CurieDatabase:
-        curies_bytes: bytes = pkgutil.get_data(
-            'gene_specificity',
-            'app_meta_data/curies.json'
-        )  # type: ignore
-        curies_str = curies_bytes.decode('utf-8')
-        curies_json = json.loads(curies_str)
-        curies = CurieDatabase(curies_json)
-        return curies
+    def __init__(self, trapi_version: str = '1.4'):
+        self.trapi_version = trapi_version
 
     def get_meta_knowledge_graph(self) -> MetaKnowledgeGraph:
         return self._read_meta_knowledge_graph()
@@ -46,37 +38,19 @@ class TrapiInterface:
         meta_kg_bytes: bytes = pkgutil.get_data(
             'gene_specificity',
             'app_meta_data/meta_knowledge_graph.json'
-        )  # type: ignore
+        )
         meta_kg_str = meta_kg_bytes.decode('utf-8')
         meta_kg_json = json.loads(meta_kg_str)
-        meta_kg = MetaKnowledgeGraph.load(  # type: ignore
-            self.trapi_version, None, meta_kg_json)  # type: ignore
+        meta_kg = MetaKnowledgeGraph.parse_obj(meta_kg_json)  # type: ignore
         return meta_kg
-
-    def _read_conflation_map(self) -> ConflationMap:
-        conflation_map_bytes: bytes = pkgutil.get_data(
-            'gene_specificity',
-            'app_meta_data/conflation_map.json'
-        )  # type: ignore
-        conflation_map_str = conflation_map_bytes.decode('utf-8')
-        conflation_map_json = json.loads(conflation_map_str)
-        conflation_map = ConflationMap(conflation_map_json)
-        return conflation_map
-
-    def get_conflation_map(self) -> ConflationMap:
-        return self._read_conflation_map()
 
     def get_name(self) -> str:
         return 'gene_specificity'
 
-    def _return_no_result(self, query, message):
-        resp = query.get_copy()
-        resp.logger.info(message)
-        return resp
+    def get_response(self, message: Message):  # type: ignore
 
-    def get_response(self, query: Query):  # type: ignore
-        response_object: Query = query.get_copy()
-
+        return message
+        '''
         # Get the edge object (there's only one)
         qedges: QEdge = query.message.query_graph.edges  # type: ignore
         edge_id = list(qedges.keys())[0]
@@ -141,7 +115,9 @@ class TrapiInterface:
         #if max_results is not None:
         results = results[:10]  # type: ignore
         return self._build_response(query, q_subject_node, q_object_node, subject_wildcard, results, response_object)
+        '''
 
+    '''
     def _build_response(self, query: Query, q_subject_node: QNode, q_object_node: QNode, subject_wildcard: bool, data_base_results: QuerySet, response_object: Query):
         response_results = query.message.results
 
@@ -283,3 +259,5 @@ class TrapiInterface:
 
     def _reformat_biolink_term(self, biolink_term: str):
         return '_'.join(biolink_term.split(":"))
+
+    '''
