@@ -18,9 +18,6 @@ setup(
     data_files=[
         ('',
             [
-                'gene_specificity/app_meta_data/conflation_map.json',
-                'gene_specificity/app_meta_data/curies.json',
-                'gene_specificity/app_meta_data/epc.json',
                 'gene_specificity/app_meta_data/meta_knowledge_graph.json',
                 ]
             )
