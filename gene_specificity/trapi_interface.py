@@ -47,7 +47,7 @@ class TrapiInterface:
 
     def get_response(self, message: Message, logger):  # type: ignore
         logger.info('hi')
-        return message, logger
+        return message
         '''
         # Get the edge object (there's only one)
         qedges: QEdge = query.message.query_graph.edges  # type: ignore
