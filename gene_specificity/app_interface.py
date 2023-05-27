@@ -27,6 +27,6 @@ def get_response(consistent_queries: List[Message], logger):
     for consistent_query in consistent_queries:
         response = interface.get_response(consistent_query, logger)
         responses.append(response)
-        app_logs.extend(interface.logger.to_dict())
+        app_logs.extend(logger.to_dict())
     status = 'Success'
     return responses, logger, status, description
