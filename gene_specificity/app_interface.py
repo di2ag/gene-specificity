@@ -20,13 +20,8 @@ def get_meta_knowledge_graph() -> MetaKnowledgeGraph:
 def get_response(consistent_queries: List[Message], logger):
     """ Should return app responses plus app_logs, status, and description information."""
     responses = []
-    status: str = None
-    description: str = None
-    app_logs = []
     interface = get_trapi_interface()
     for consistent_query in consistent_queries:
         response = interface.get_response(consistent_query, logger)
         responses.append(response)
-        app_logs.extend(logger.to_dict())
-    status = 'Success'
-    return responses, app_logs, status, description
+    return responses
