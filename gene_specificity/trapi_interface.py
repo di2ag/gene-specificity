@@ -1,5 +1,3 @@
-# TODO: 
-
 '''trapi interface'''
 from copy import copy
 import json
@@ -25,7 +23,7 @@ logging.addLevelName(25, "NOTE")
 def note(self, message, *args, **kwargs):
     self._log(25, message, args, kwargs)
 logging.Logger.note = note
-logger = logging.getLogger(__name__)
+internal_logger = logging.getLogger(__name__)
 
 class TrapiInterface:
     def __init__(self, trapi_version: str = '1.4'):
@@ -47,9 +45,9 @@ class TrapiInterface:
     def get_name(self) -> str:
         return 'gene_specificity'
 
-    def get_response(self, message: Message):  # type: ignore
-
-        return message
+    def get_response(self, message: Message, logger):  # type: ignore
+        logger.info('hi')
+        return message, logger
         '''
         # Get the edge object (there's only one)
         qedges: QEdge = query.message.query_graph.edges  # type: ignore
