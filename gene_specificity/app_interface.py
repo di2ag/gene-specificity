@@ -29,4 +29,4 @@ def get_response(consistent_queries: List[Message], logger):
         responses.append(response)
         app_logs.extend(logger.to_dict())
     status = 'Success'
-    return responses, logger, status, description
+    return responses, app_logs, status, description
