@@ -102,7 +102,7 @@ class TrapiInterface:
         elif subject_curies is not None:
             logger.info('Wildcard detected')
             for curie in subject_curies:
-                if object_category == 'biolink:Gene'
+                if object_category == 'biolink:Gene':
                     objects = SpecificityMeanGene.objects.filter(gene_curie=curie).reverse()[:threshold]
                 else:
                     objects = results: QuerySet = SpecificityMeanTissue.objects.filter(tissue_curie=curie).reverse()[:threshold]
@@ -114,7 +114,7 @@ class TrapiInterface:
         elif object_curies is not None:
             logger.info('Wildcard detected')
             for curie in object_curies:
-                if subject_category == 'biolink:Gene'
+                if subject_category == 'biolink:Gene':
                     subjects = SpecificityMeanGene.objects.filter(gene_curie=curie).reverse()[:threshold]
                 else:
                     subjects = results: QuerySet = SpecificityMeanTissue.objects.filter(tissue_curie=curie).reverse()[:threshold]
