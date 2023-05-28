@@ -108,7 +108,7 @@ class TrapiInterface:
                 else:
                     print('@@@@@@@@@@@',curie)
                     subjects = SpecificityMeanTissue.objects.filter(tissue_curie=curie).reverse()[:threshold]
-                if len(objects) > 0:
+                if len(subjects) > 0:
                     logger.info('Found results for {}'.format(curie))
                     subject_curies = [subject.get_result()[0] for subject in subjects]
                     vals = [subject.get_result()[2] for subject in subjets]
@@ -120,7 +120,7 @@ class TrapiInterface:
                     objects = SpecificityMeanGene.objects.filter(gene_curie=curie).reverse()[:threshold]
                 else:
                     objects = SpecificityMeanTissue.objects.filter(tissue_curie=curie).reverse()[:threshold]
-                if len(subjects) > 0:
+                if len(objects) > 0:
                     logger.info('Found results for {}'.format(curie))
                     object_curies = [object.get_result()[0] for object in objects]
                     vals = [object.get_result()[2] for object in objects]
