@@ -81,7 +81,7 @@ class TrapiInterface:
         kgraph = KnowledgeGraph(nodes=nodes, edges=edges)
         rgraph = Results(__root__=results)
         if message.knowledge_graph is not None:
-            message.knowledge_graph.update(k_graph)
+            message.knowledge_graph.update(kgraph)
         else:
 	        message.knowledge_graph = kgraph
         if message.results is not None:
