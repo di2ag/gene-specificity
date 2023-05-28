@@ -88,6 +88,7 @@ class TrapiInterface:
             message.results=rgraph
 
     def get_response(self, message: Message, logger):
+        print(message)
         for edge_id, edge in message.query_graph.edges.items():
             predicate = edge.predicates[0]
             qg_subject_id = edge.subject

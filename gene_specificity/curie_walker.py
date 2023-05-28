@@ -42,7 +42,7 @@ def query_ontology_kp(curies, category):
 def get_curie_descendant_mapping(qnode):
     print(qnode)
     ids = qnode.ids
-    category = qnode.categories
+    category = qnode.categories[0]
     if ids is not None:
         ids = list(ids)
         mapping, descendant_curies = query_ontology_kp(ids, category)
