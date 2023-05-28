@@ -25,6 +25,7 @@ def query_ontology_kp(curies, category):
             "query_graph": query_graph,
         }
     }
+    print(query)
     url = 'https://ontology-kp.apps.renci.org/query'
     r = requests.post(url, json=query, timeout=1000)
     answer = json.loads(r.content)
