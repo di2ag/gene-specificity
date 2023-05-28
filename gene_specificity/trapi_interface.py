@@ -105,7 +105,7 @@ class TrapiInterface:
                 if object_category == 'biolink:Gene':
                     objects = SpecificityMeanGene.objects.filter(gene_curie=curie).reverse()[:threshold]
                 else:
-                    objects = results: QuerySet = SpecificityMeanTissue.objects.filter(tissue_curie=curie).reverse()[:threshold]
+                    objects = SpecificityMeanTissue.objects.filter(tissue_curie=curie).reverse()[:threshold]
                 if len(objects) > 0:
                     logger.info('Found results for {}'.format(curie))
                     object_curies = [object.get_result()[0] for object in objects]
@@ -117,7 +117,7 @@ class TrapiInterface:
                 if subject_category == 'biolink:Gene':
                     subjects = SpecificityMeanGene.objects.filter(gene_curie=curie).reverse()[:threshold]
                 else:
-                    subjects = results: QuerySet = SpecificityMeanTissue.objects.filter(tissue_curie=curie).reverse()[:threshold]
+                    subjects = SpecificityMeanTissue.objects.filter(tissue_curie=curie).reverse()[:threshold]
                 if len(subjects) > 0
                     logger.info('Found results for {}'.format(curie))
                     subject_curies = [subject.get_result()[0] for subject in subjects]
