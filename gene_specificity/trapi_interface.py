@@ -1,20 +1,12 @@
 '''trapi interface'''
-from copy import copy
+import uuid
 import json
 import pkgutil
 import logging
 from typing import Tuple, Union
-
 from django.db.models import QuerySet
-
-#from trapi_model.logger import Logger as TrapiLogger
-#from trapi_model.meta_knowledge_graph import MetaKnowledgeGraph  # type: ignore
-#from trapi_model.query import Query  # type: ignore
-#from trapi_model.query_graph import QEdge  # type: ignore
-#from trapi_model.query_graph import QNode  # type: ignore
-#from trapi_model.knowledge_graph import KEdge, KNode, Source
+from curie_walker import get_curie_descendant_mapping
 from reasoner_pydantic import MetaKnowledgeGraph, Message
-
 from gene_specificity.models import SpecificityMeanGene, SpecificityMeanTissue
 
 # Setup logging
@@ -39,15 +31,103 @@ class TrapiInterface:
         )
         meta_kg_str = meta_kg_bytes.decode('utf-8')
         meta_kg_json = json.loads(meta_kg_str)
-        meta_kg = MetaKnowledgeGraph.parse_obj(meta_kg_json)  # type: ignore
+        meta_kg = MetaKnowledgeGraph.parse_obj(meta_kg_json)
         return meta_kg
 
     def get_name(self) -> str:
         return 'gene_specificity'
 
-    def get_response(self, message: Message, logger):  # type: ignore
-        logger.info('hi')
+    def _get_sources(self):
+        source_1 = RetrievalSource(resource_id = "infores:connections-hypothesis",
+                                   resource_role="primary_knowledge_source")
+        source_2 = RetrievalSource(resource_id = "infores:gtex",
+                                   resource_role="supporting_data_source")
+        return {source_1, source_2}
+
+    def _get_attributes(self, val):
+        att_1 = Attribute(attribute_type_id = 'Specificity',
+                          value_type_id='biolink:has_evidence',
+                          value=val,
+                          description="Specificity value between a tissue and gene indicates a gene's RNA Sequence expression specificity to that tissue. Values closer to 0 indicate no expression specificity and values closer to 5.755 or log_2(54) (54 being the number of tissues used in this analysis) indicate complete specificity.")
+        att_2 = Attribute(attribute_type_id = 'primary_knowledge_source',
+                          value='infores:connections-hypothesis',
+                          value_url='https://github.com/di2ag/gene-specificity',
+                          description='The Connections Hypothesis Provider from NCATS Translator')
+        return {att_1, att_2}
+
+    def _add_results(self, message, qg_subject_id, subject_curies, subject_category, predicate, qg_object_id, object_curies, object_category, vals):
+        nodes = dict()
+        edges = dict()
+        results = set()
+        val_id = 0
+        for subject_curie in subject_curies:
+            for object_curie in object_curies:
+                nodes[subject_curie] = {"categories": [subject_category]}
+                nodes[object_curie] = {"categories": [object_category]}
+                kg_edge_id = str(uuid.uuid4())
+                edges[kg_edge_id] = {"predicate": predicate,
+                                     "subject": subject_curie,
+                                     "object": object_curie,
+                                     "sources": self._get_sources(),
+                                     "attributes": self._get_attributes(vals[val_id])}
+                val_id += 1
+                node_bindings = dict()
+                node_bindings[qg_subject_id] = {NodeBinding(id = subject_curie)}
+                node_bindings[qg_object_id] = {NodeBinding(id = object_curie)}
+                result = Result(node_bindings=node_bindings)
+                results.add(result)
+        kgraph = KnowledgeGraph(nodes=nodes, edges=edges)
+        rgraph = Results(__root__=results)
+        if message.knowledge_graph is not None:
+            message.knowledge_graph.update(k_graph)
+        else:
+	    message.knowledge_graph = kgraph
+        if message.results is not None:
+            message.results.update(rgraph)
+        else:
+            message.results=rgraph
+
+    def get_response(self, message: Message, logger):
+        subject_mapping, subject_curies, subject_category = get_curie_descendant_mapping(message.query_graph.nodes[subject])
+        object_mapping, object_curies, object_category = get_curie_descendant_mapping(message.query_graph.nodes[object])
+        for edge_id, edge in message.query_graph.edges.items():
+            predicate = edge.predicates[0]
+            qg_subject_id = edge.subject
+            qg_object_id = edge.object
+        # annotation
+        threshold = 10
+        if subject_curies is not None and object_curies is not None:
+            logger.info('Annotation edges detected')
+            logger.info('Annotate edge not currently supported')
+        elif subject_curies is not None:
+            logger.info('Wildcard detected')
+            for curie in subject_curies:
+                if object_category == 'biolink:Gene'
+                    objects = SpecificityMeanGene.objects.filter(gene_curie=curie).reverse()[:threshold]
+                else:
+                    objects = results: QuerySet = SpecificityMeanTissue.objects.filter(tissue_curie=curie).reverse()[:threshold]
+                if len(objects) > 0:
+                    logger.info('Found results for {}'.format(curie))
+                    object_curies = [object.get_result()[0] for object in objects]
+                    vals = [object.get_result()[2] for object in objects]
+                    self._add_results(message, qg_subject_id, [curie], subject_category, predicate, qg_object_id, object_curies, object_category, vals)
+        elif object_curies is not None:
+            logger.info('Wildcard detected')
+            for curie in object_curies:
+                if subject_category == 'biolink:Gene'
+                    subjects = SpecificityMeanGene.objects.filter(gene_curie=curie).reverse()[:threshold]
+                else:
+                    subjects = results: QuerySet = SpecificityMeanTissue.objects.filter(tissue_curie=curie).reverse()[:threshold]
+                if len(subjects) > 0
+                    logger.info('Found results for {}'.format(curie))
+                    subject_curies = [subject.get_result()[0] for subject in subjects]
+                    vals = [subject.get_result()[2] for subject in subjects]
+                    self._add_results(message, qg_subject_id, subject_curies, subject_category, predicate, qg_object_id, [curie], object_category, vals)
+        else:
+            logger.info('No curies detected. Returning no results')
+
         return message
+
         '''
         # Get the edge object (there's only one)
         qedges: QEdge = query.message.query_graph.edges  # type: ignore
