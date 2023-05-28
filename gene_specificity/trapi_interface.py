@@ -88,7 +88,7 @@ class TrapiInterface:
             message.results=rgraph
 
     def get_response(self, message: Message, logger):
-        print(message)
+        print(message.to_dict())
         for edge_id, edge in message.query_graph.edges.items():
             predicate = edge.predicates[0]
             qg_subject_id = edge.subject
@@ -106,6 +106,7 @@ class TrapiInterface:
                 if object_category == 'biolink:Gene':
                     objects = SpecificityMeanGene.objects.filter(gene_curie=curie).reverse()[:threshold]
                 else:
+                    print('@@@@@@@@@@@',curie)
                     objects = SpecificityMeanTissue.objects.filter(tissue_curie=curie).reverse()[:threshold]
                 if len(objects) > 0:
                     logger.info('Found results for {}'.format(curie))
