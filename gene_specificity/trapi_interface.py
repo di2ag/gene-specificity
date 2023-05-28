@@ -111,7 +111,7 @@ class TrapiInterface:
                 if len(subjects) > 0:
                     logger.info('Found results for {}'.format(curie))
                     subject_curies = [subject.get_result()[0] for subject in subjects]
-                    vals = [subject.get_result()[2] for subject in subjets]
+                    vals = [subject.get_result()[2] for subject in subjects]
                     self._add_results(message, qg_subject_id, subject_curies, subject_category, predicate, qg_object_id, [curie], object_category, vals)
         elif subject_curies is not None:
             logger.info('Wildcard detected')
