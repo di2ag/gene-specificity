@@ -5,7 +5,7 @@ import pkgutil
 import logging
 from typing import Tuple, Union
 from django.db.models import QuerySet
-from curie_walker import get_curie_descendant_mapping
+from .curie_walker import get_curie_descendant_mapping
 from reasoner_pydantic import MetaKnowledgeGraph, Message
 from gene_specificity.models import SpecificityMeanGene, SpecificityMeanTissue
 
