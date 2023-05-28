@@ -88,12 +88,12 @@ class TrapiInterface:
             message.results=rgraph
 
     def get_response(self, message: Message, logger):
-        subject_mapping, subject_curies, subject_category = get_curie_descendant_mapping(message.query_graph.nodes[subject])
-        object_mapping, object_curies, object_category = get_curie_descendant_mapping(message.query_graph.nodes[object])
         for edge_id, edge in message.query_graph.edges.items():
             predicate = edge.predicates[0]
             qg_subject_id = edge.subject
             qg_object_id = edge.object
+        subject_mapping, subject_curies, subject_category = get_curie_descendant_mapping(message.query_graph.nodes[qg_subject_id])
+        object_mapping, object_curies, object_category = get_curie_descendant_mapping(message.query_graph.nodes[qg_object_id])
         # annotation
         threshold = 10
         if subject_curies is not None and object_curies is not None:
