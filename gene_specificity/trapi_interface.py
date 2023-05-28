@@ -100,31 +100,31 @@ class TrapiInterface:
         if subject_curies is not None and object_curies is not None:
             logger.info('Annotation edges detected')
             logger.info('Annotate edge not currently supported')
+        elif object_curies is not None:
+            logger.info('Wildcard detected')
+            for curie in object_curies:
+                if object_category == 'biolink:Gene':
+                    subjects = SpecificityMeanGene.objects.filter(gene_curie=curie).reverse()[:threshold]
+                else:
+                    print('@@@@@@@@@@@',curie)
+                    subjects = SpecificityMeanTissue.objects.filter(tissue_curie=curie).reverse()[:threshold]
+                if len(objects) > 0:
+                    logger.info('Found results for {}'.format(curie))
+                    subject_curies = [subject.get_result()[0] for subject in subjects]
+                    vals = [subject.get_result()[2] for subject in subjets]
+                    self._add_results(message, qg_subject_id, subject_curies, subject_category, predicate, qg_object_id, [curie], object_category, vals)
         elif subject_curies is not None:
             logger.info('Wildcard detected')
             for curie in subject_curies:
-                if object_category == 'biolink:Gene':
+                if subject_category == 'biolink:Gene':
                     objects = SpecificityMeanGene.objects.filter(gene_curie=curie).reverse()[:threshold]
                 else:
-                    print('@@@@@@@@@@@',curie)
                     objects = SpecificityMeanTissue.objects.filter(tissue_curie=curie).reverse()[:threshold]
-                if len(objects) > 0:
+                if len(subjects) > 0:
                     logger.info('Found results for {}'.format(curie))
                     object_curies = [object.get_result()[0] for object in objects]
                     vals = [object.get_result()[2] for object in objects]
                     self._add_results(message, qg_subject_id, [curie], subject_category, predicate, qg_object_id, object_curies, object_category, vals)
-        elif object_curies is not None:
-            logger.info('Wildcard detected')
-            for curie in object_curies:
-                if subject_category == 'biolink:Gene':
-                    subjects = SpecificityMeanGene.objects.filter(gene_curie=curie).reverse()[:threshold]
-                else:
-                    subjects = SpecificityMeanTissue.objects.filter(tissue_curie=curie).reverse()[:threshold]
-                if len(subjects) > 0:
-                    logger.info('Found results for {}'.format(curie))
-                    subject_curies = [subject.get_result()[0] for subject in subjects]
-                    vals = [subject.get_result()[2] for subject in subjects]
-                    self._add_results(message, qg_subject_id, subject_curies, subject_category, predicate, qg_object_id, [curie], object_category, vals)
         else:
             logger.info('No curies detected. Returning no results')
 
