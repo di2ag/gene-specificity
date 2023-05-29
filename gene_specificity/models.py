@@ -1,4 +1,4 @@
-from django.db.models import Model, CharField, DateTimeField, JSONField, FloatField, ForeignKey
+from django.db.models import Model, CharField, DateTimeField, JSONField, FloatField, ForeignKey, CASCADE
 
 
 class SpecificityMeanGene(Model):
@@ -40,7 +40,7 @@ class CurieTemplate(Model):
     curie = CharField(max_length=128)
 
 class CurieTemplateMatch(Model):
-    curie_template = ForeignKey(CurieTemplate, on_delete=models.CASCADE)
+    curie_template = ForeignKey(CurieTemplate, on_delete=CASCADE)
     curie = CharField(max_length=128)
 
 
