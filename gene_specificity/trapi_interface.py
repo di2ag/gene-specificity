@@ -110,7 +110,8 @@ class TrapiInterface:
         subject_mapping, subject_curies, subject_category = self._get_curie_descendants(message.query_graph.nodes[qg_subject_id])
         object_mapping, object_curies, object_category = self._get_curie_descendants(message.query_graph.nodes[qg_object_id])
         # annotation
-        threshold = 10
+        gene_to_tissue_thresh = 0.1
+        tissue_to_gene_thresh = 1
         node_bindings = {qg_subject_id: set(), qg_object_id: set()}
         edge_bindings = {qg_edge_id : set()}
         if subject_curies is not None and object_curies is not None:
@@ -121,9 +122,18 @@ class TrapiInterface:
             logger.info('Wildcard detected')
             for curie in object_curies:
                 if object_category == 'biolink:Gene':
-                    subjects = SpecificityMeanGene.objects.filter(gene_curie=curie).reverse()[:threshold]
+                    subjects = SpecificityMeanGene.objects.filter(gene_curie=curie).reverse()
+                    _subjects = []
+                    for subject in subjects:
+                        if subject.get_result()[2] > gene_to_tissue_thresh:
+                            _subjects.append(subject)
                 else:
                     subjects = SpecificityMeanTissue.objects.filter(tissue_curie=curie).reverse()[:threshold]
+                    _subjects = []
+                    for subject in subjects:
+                        if subject.get_result()[2] > tissue_to_gene_thresh:
+                            _subjects.append(subject)
+                subjects = _subjects
                 if len(subjects) > 0:
                     logger.info('Found results for {}'.format(curie))
                     subject_curies = [subject.get_result()[0] for subject in subjects]
@@ -134,8 +144,17 @@ class TrapiInterface:
             for curie in subject_curies:
                 if subject_category == 'biolink:Gene':
                     objects = SpecificityMeanGene.objects.filter(gene_curie=curie).reverse()[:threshold]
+                    _objects = []
+                    for object in objects:
+                        if object.get_result()[2] > gene_to_tissue_thresh:
+                            _objects.append(object)
                 else:
                     objects = SpecificityMeanTissue.objects.filter(tissue_curie=curie).reverse()[:threshold]
+                    _objects = []
+                    for object in objects:
+                        if object.get_result()[2] > tissue_to_gene_thresh:
+                            _objects.append(object)
+                objects = _objects
                 if len(objects) > 0:
                     logger.info('Found results for {}'.format(curie))
                     object_curies = [object.get_result()[0] for object in objects]
