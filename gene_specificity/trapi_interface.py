@@ -111,7 +111,7 @@ class TrapiInterface:
         object_mapping, object_curies, object_category = self._get_curie_descendants(message.query_graph.nodes[qg_object_id])
         # annotation
         gene_to_tissue_thresh = 0.1
-        tissue_to_gene_thresh = 1
+        tissue_to_gene_thresh = 2
         node_bindings = {qg_subject_id: set(), qg_object_id: set()}
         edge_bindings = {qg_edge_id : set()}
         if subject_curies is not None and object_curies is not None:
