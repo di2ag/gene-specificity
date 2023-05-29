@@ -84,7 +84,7 @@ class TrapiInterface:
                 edge_bindings = dict()
                 edge_bindings[qg_edge_id] = {EdgeBinding(id = kg_edge_id)}
                 analysis = Analysis(resource_id='infores:connections-hypothesis', edge_bindings=edge_bindings)
-                result = Result(node_bindings=node_bindings)
+                result = Result(node_bindings=node_bindings, analyses=[analysis])
                 results.add(result)
         kgraph = KnowledgeGraph(nodes=nodes, edges=edges)
         rgraph = Results(__root__=results)
