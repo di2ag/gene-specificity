@@ -127,12 +127,16 @@ class TrapiInterface:
                     for subject in subjects:
                         if subject.get_result()[2] > gene_to_tissue_thresh:
                             _subjects.append(subject)
+                        else:
+                            break
                 else:
                     subjects = SpecificityMeanTissue.objects.filter(tissue_curie=curie).reverse()
                     _subjects = []
                     for subject in subjects:
                         if subject.get_result()[2] > tissue_to_gene_thresh:
                             _subjects.append(subject)
+                        else:
+                            break
                 subjects = _subjects
                 if len(subjects) > 0:
                     logger.info('Found results for {}'.format(curie))
@@ -148,12 +152,16 @@ class TrapiInterface:
                     for object in objects:
                         if object.get_result()[2] > gene_to_tissue_thresh:
                             _objects.append(object)
+                        else:
+                            break
                 else:
                     objects = SpecificityMeanTissue.objects.filter(tissue_curie=curie).reverse()
                     _objects = []
                     for object in objects:
                         if object.get_result()[2] > tissue_to_gene_thresh:
                             _objects.append(object)
+                        else:
+                            break
                 objects = _objects
                 if len(objects) > 0:
                     logger.info('Found results for {}'.format(curie))
