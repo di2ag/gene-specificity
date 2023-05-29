@@ -89,11 +89,8 @@ class TrapiInterface:
             message.knowledge_graph.update(kgraph)
         else:
 	        message.knowledge_graph = kgraph
-
-        if message.results is None or message.results.__root__ is None:
-            message.results = Results(__root__ = {result})
-        else:
-            message.results.__root__[0].update(result)
+        #message.results = Results(__root__ = {result})
+        return result
 
     def _get_curie_descendants(self, qnode):
         ids = qnode.ids
@@ -120,6 +117,7 @@ class TrapiInterface:
         object_mapping, object_curies, object_category = self._get_curie_descendants(message.query_graph.nodes[qg_object_id])
         # annotation
         threshold = 10
+        result = None
         if subject_curies is not None and object_curies is not None:
             logger.info('Annotation edges detected')
             logger.info('Annotate edge not currently supported')
@@ -134,7 +132,11 @@ class TrapiInterface:
                     logger.info('Found results for {}'.format(curie))
                     subject_curies = [subject.get_result()[0] for subject in subjects]
                     vals = [subject.get_result()[2] for subject in subjects]
-                    self._add_results(message, subject_mapping, qg_subject_id, subject_curies, subject_category, predicate, qg_edge_id, object_mapping, qg_object_id, [curie], object_category, vals)
+                    result_i = self._add_results(message, subject_mapping, qg_subject_id, subject_curies, subject_category, predicate, qg_edge_id, object_mapping, qg_object_id, [curie], object_category, vals)
+                    if result is None:
+                        result = result_i
+                    else:
+                        result.update(result_i)
         elif subject_curies is not None:
             logger.info('Wildcard detected')
             for curie in subject_curies:
@@ -146,8 +148,13 @@ class TrapiInterface:
                     logger.info('Found results for {}'.format(curie))
                     object_curies = [object.get_result()[0] for object in objects]
                     vals = [object.get_result()[2] for object in objects]
-                    self._add_results(message, subject_mapping, qg_subject_id, [curie], subject_category, predicate, qg_edge_id, object_mapping, qg_object_id, object_curies, object_category, vals)
+                    result_i = self._add_results(message, subject_mapping, qg_subject_id, [curie], subject_category, predicate, qg_edge_id, object_mapping, qg_object_id, object_curies, object_category, vals)
+                    if result is None:
+                        result = result_i
+                    else:
+                        result.update(result_i)
         else:
             logger.info('No curies detected. Returning no results')
-
+        if result is not None:
+            message.results = Results(__root__ = {result})
         return message
