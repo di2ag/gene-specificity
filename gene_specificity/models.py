@@ -36,6 +36,13 @@ class SpecificityMedianTissue(Model):
     def get_result(self) -> list:
         return self.gene_curie, "biolink:Gene" , self.specificity_median  # type: ignore
 
+class CurieTemplate(models.Model):
+    curie = models.CharField(max_length=128)
+
+class CurieTemplateMatch(models.Model):
+    curie_template = models.ForeignKey(CurieTemplate, on_delete=models.CASCADE)
+    curie = models.CharField(max_length=128)
+
 
 class Transaction(Model):
     id = CharField(max_length=100, primary_key=True)  # type: ignore #noqa
