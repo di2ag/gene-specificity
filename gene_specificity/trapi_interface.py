@@ -59,8 +59,10 @@ class TrapiInterface:
     def _add_results(self, message, subject_mapping, qg_subject_id, subject_curies, subject_category, predicate, qg_edge_id, object_mapping, qg_object_id, object_curies, object_category, vals):
         nodes = dict()
         edges = dict()
-        results = set()
         val_id = 0
+        node_bindings = {qg_subject_id: set(), qg_object_id: set()}
+        edge_bindings = {qg_edge_id = set()}
+        edge_bindings = dict()
         for subject_curie in subject_curies:
             for object_curie in object_curies:
                 nodes[subject_curie] = {"categories": [subject_category]}
@@ -72,30 +74,26 @@ class TrapiInterface:
                                      "sources": self._get_sources(),
                                      "attributes": self._get_attributes(vals[val_id])}
                 val_id += 1
-                node_bindings = dict()
                 if subject_curie in subject_mapping:
-                    node_bindings[qg_subject_id] = {NodeBinding(id = subject_curie, query_id = subject_mapping[subject_curie])}
+                    node_bindings[qg_subject_id].add(NodeBinding(id = subject_curie, query_id = subject_mapping[subject_curie]))
                 else:
-                    node_bindings[qg_subject_id] = {NodeBinding(id = subject_curie)}
+                    node_bindings[qg_subject_id].add(NodeBinding(id = subject_curie))
                 if object_curie in object_mapping:
-                    node_bindings[qg_object_id] = {NodeBinding(id = object_curie, query_id = object_mapping[object_curie])}
+                    node_bindings[qg_object_id].add(NodeBinding(id = object_curie, query_id = object_mapping[object_curie]))
                 else:
-                    node_bindings[qg_object_id] = {NodeBinding(id = object_curie)}
-                edge_bindings = dict()
-                edge_bindings[qg_edge_id] = {EdgeBinding(id = kg_edge_id)}
-                analysis = Analysis(resource_id='infores:connections-hypothesis', edge_bindings=edge_bindings)
-                result = Result(node_bindings=node_bindings, analyses=[analysis])
-                results.add(result)
+                    node_bindings[qg_object_id].add(NodeBinding(id = object_curie))
+                edge_bindings[qg_edge_id].add(EdgeBinding(id = kg_edge_id))
+        analysis = Analysis(resource_id='infores:connections-hypothesis', edge_bindings=edge_bindings)
+        result = Result(node_bindings=node_bindings, analyses=[analysis])
         kgraph = KnowledgeGraph(nodes=nodes, edges=edges)
-        rgraph = Results(__root__=results)
         if message.knowledge_graph is not None:
             message.knowledge_graph.update(kgraph)
         else:
 	        message.knowledge_graph = kgraph
         if message.results is not None:
-            message.results.update(rgraph)
+            message.results.update( Results(__root__ = {result}))
         else:
-            message.results=rgraph
+            message.results.__root__[0].update(result)
 
     def _get_curie_descendants(self, qnode):
         ids = qnode.ids
