@@ -134,7 +134,7 @@ class TrapiInterface:
                 if subject_category == 'biolink:Gene':
                     objects = SpecificityMeanGene.objects.filter(gene_curie=curie).reverse()[0:10]
                 else:
-                    objects = SpecificityMeanTissue.objects.filter(tissue_curie=curie).reverse()[0:30
+                    objects = SpecificityMeanTissue.objects.filter(tissue_curie=curie).reverse()[0:30]
                 if len(objects) > 0:
                     logger.info('Found results for {}'.format(curie))
                     object_curies = [object.get_result()[0] for object in objects]
