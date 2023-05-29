@@ -88,7 +88,7 @@ class TrapiInterface:
         else:
             message.results=rgraph
 
-    def _get_curie_descendants(qnode):
+    def _get_curie_descendants(self, qnode):
         ids = qnode.ids
         category = qnode.categories[0]
         if ids is not None:
