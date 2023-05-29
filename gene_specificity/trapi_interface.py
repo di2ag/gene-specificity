@@ -7,7 +7,7 @@ from typing import Tuple, Union
 from django.db.models import QuerySet
 from reasoner_pydantic import MetaKnowledgeGraph, Message, KnowledgeGraph
 from reasoner_pydantic.kgraph import RetrievalSource, Attribute
-from reasoner_pydantic.results import NodeBinding, Result, Results
+from reasoner_pydantic.results import NodeBinding, EdgeBinding, Result, Results, Analysis
 from gene_specificity.models import SpecificityMeanGene, SpecificityMeanTissue, CurieTemplate, CurieTemplateMatch
 
 # Setup logging
@@ -56,7 +56,7 @@ class TrapiInterface:
                           description='The Connections Hypothesis Provider from NCATS Translator')
         return {att_1, att_2}
 
-    def _add_results(self, message, subject_mapping, qg_subject_id, subject_curies, subject_category, predicate, object_mapping, qg_object_id, object_curies, object_category, vals):
+    def _add_results(self, message, subject_mapping, qg_subject_id, subject_curies, subject_category, predicate, qg_edge_id, object_mapping, qg_object_id, object_curies, object_category, vals):
         nodes = dict()
         edges = dict()
         results = set()
@@ -81,6 +81,9 @@ class TrapiInterface:
                     node_bindings[qg_object_id] = {NodeBinding(id = object_curie, query_id = object_mapping[object_curie])}
                 else:
                     node_bindings[qg_object_id] = {NodeBinding(id = object_curie)}
+                edge_bindings = dict()
+                edge_bindings[qg_edge_id] = {EdgeBiding(id = kg_edge_id)}
+                analysis = Analysis(resource_id='infores:connections-hypothesis', edge_bindings=edge_bindings)
                 result = Result(node_bindings=node_bindings)
                 results.add(result)
         kgraph = KnowledgeGraph(nodes=nodes, edges=edges)
@@ -112,6 +115,7 @@ class TrapiInterface:
     def get_response(self, message: Message, logger):
         for edge_id, edge in message.query_graph.edges.items():
             predicate = edge.predicates[0]
+            qg_edge_id = edge_id
             qg_subject_id = edge.subject
             qg_object_id = edge.object
         subject_mapping, subject_curies, subject_category = self._get_curie_descendants(message.query_graph.nodes[qg_subject_id])
@@ -132,7 +136,7 @@ class TrapiInterface:
                     logger.info('Found results for {}'.format(curie))
                     subject_curies = [subject.get_result()[0] for subject in subjects]
                     vals = [subject.get_result()[2] for subject in subjects]
-                    self._add_results(message, subject_mapping, qg_subject_id, subject_curies, subject_category, predicate, object_mapping, qg_object_id, [curie], object_category, vals)
+                    self._add_results(message, subject_mapping, qg_subject_id, subject_curies, subject_category, predicate, qg_edge_id, object_mapping, qg_object_id, [curie], object_category, vals)
         elif subject_curies is not None:
             logger.info('Wildcard detected')
             for curie in subject_curies:
@@ -144,7 +148,7 @@ class TrapiInterface:
                     logger.info('Found results for {}'.format(curie))
                     object_curies = [object.get_result()[0] for object in objects]
                     vals = [object.get_result()[2] for object in objects]
-                    self._add_results(message, subject_mapping, qg_subject_id, [curie], subject_category, predicate, object_mapping, qg_object_id, object_curies, object_category, vals)
+                    self._add_results(message, subject_mapping, qg_subject_id, [curie], subject_category, predicate, qg_edge_id, object_mapping, qg_object_id, object_curies, object_category, vals)
         else:
             logger.info('No curies detected. Returning no results')
 
