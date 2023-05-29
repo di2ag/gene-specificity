@@ -146,5 +146,5 @@ class TrapiInterface:
             return message
         analysis = Analysis(resource_id='infores:connections-hypothesis', edge_bindings=edge_bindings)
         result = Result(node_bindings=node_bindings, analyses=[analysis])
-        message.results.__root__ = {result}
+        message.results = Results(__root__ = {result})
         return message
