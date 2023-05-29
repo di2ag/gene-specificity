@@ -1,4 +1,4 @@
-from django.db.models import Model, CharField, DateTimeField, JSONField, FloatField
+from django.db.models import Model, CharField, DateTimeField, JSONField, FloatField, ForeignKey
 
 
 class SpecificityMeanGene(Model):
@@ -37,11 +37,11 @@ class SpecificityMedianTissue(Model):
         return self.gene_curie, "biolink:Gene" , self.specificity_median  # type: ignore
 
 class CurieTemplate(Model):
-    curie = models.CharField(max_length=128)
+    curie = CharField(max_length=128)
 
 class CurieTemplateMatch(Model):
-    curie_template = models.ForeignKey(CurieTemplate, on_delete=models.CASCADE)
-    curie = models.CharField(max_length=128)
+    curie_template = ForeignKey(CurieTemplate, on_delete=models.CASCADE)
+    curie = CharField(max_length=128)
 
 
 class Transaction(Model):
