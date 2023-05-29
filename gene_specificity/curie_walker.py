@@ -16,6 +16,14 @@ def query_ontology_kp(curies, category):
                 "subject": "n1",
                 "object": "n0",
                 "predicates": ["biolink:part_of", "biolink:subclass_of"],
+                "attribute_constraints": [
+                    {
+                     "id": "EDAM-DATA:2589",
+                     "name": "hierarchy",
+                     "operator": "==",
+                     "value": "direct"
+                    }
+                ]
             }
         }
     }
@@ -25,7 +33,6 @@ def query_ontology_kp(curies, category):
             "query_graph": query_graph,
         }
     }
-    print(query)
     url = 'https://ontology-kp.apps.renci.org/query'
     r = requests.post(url, json=query, timeout=1000)
     answer = json.loads(r.content)
@@ -40,7 +47,6 @@ def query_ontology_kp(curies, category):
 
 
 def get_curie_descendant_mapping(qnode):
-    print(qnode)
     ids = qnode.ids
     category = qnode.categories[0]
     if ids is not None:
