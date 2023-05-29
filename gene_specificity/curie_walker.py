@@ -53,5 +53,5 @@ def get_curie_descendant_mapping(qnode):
         ids = list(ids)
         mapping, descendant_curies = query_ontology_kp(ids, category)
         ids.extend(descendant_curies)
-        return mapping, ids, category
+        return mapping, set(ids), category
     return dict(), None, category
