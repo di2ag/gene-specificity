@@ -61,7 +61,7 @@ class TrapiInterface:
         edges = dict()
         val_id = 0
         node_bindings = {qg_subject_id: set(), qg_object_id: set()}
-        edge_bindings = {qg_edge_id = set()}
+        edge_bindings = {qg_edge_id : set()}
         edge_bindings = dict()
         for subject_curie in subject_curies:
             for object_curie in object_curies:
