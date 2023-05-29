@@ -82,7 +82,7 @@ class TrapiInterface:
                 else:
                     node_bindings[qg_object_id] = {NodeBinding(id = object_curie)}
                 edge_bindings = dict()
-                edge_bindings[qg_edge_id] = {EdgeBiding(id = kg_edge_id)}
+                edge_bindings[qg_edge_id] = {EdgeBinding(id = kg_edge_id)}
                 analysis = Analysis(resource_id='infores:connections-hypothesis', edge_bindings=edge_bindings)
                 result = Result(node_bindings=node_bindings)
                 results.add(result)
