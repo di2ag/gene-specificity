@@ -97,8 +97,10 @@ class TrapiInterface:
             for id in ids:
                 matches = CurieTemplateMatch.objects.filter(curie_template__curie=id)
                 for match in matches:
+                    print(match.curie)
                     descendant_curies.add(match.curie)
                     if id != match.curie:
+                        print("made mapping")
                         mapping[match.curie] = id
             return mapping, list(descendant_curies), category
         return dict(), None, category
@@ -109,8 +111,8 @@ class TrapiInterface:
             predicate = edge.predicates[0]
             qg_subject_id = edge.subject
             qg_object_id = edge.object
-        subject_mapping, subject_curies, subject_category = self._get_curie_descendant_mapping(message.query_graph.nodes[qg_subject_id])
-        object_mapping, object_curies, object_category = self._get_curie_descendant_mapping(message.query_graph.nodes[qg_object_id])
+        subject_mapping, subject_curies, subject_category = self._get_curie_descendants(message.query_graph.nodes[qg_subject_id])
+        object_mapping, object_curies, object_category = self._get_curie_descendants(message.query_graph.nodes[qg_object_id])
         # annotation
         threshold = 10
         if subject_curies is not None and object_curies is not None:
