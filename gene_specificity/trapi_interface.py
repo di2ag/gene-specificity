@@ -89,8 +89,9 @@ class TrapiInterface:
             message.knowledge_graph.update(kgraph)
         else:
 	        message.knowledge_graph = kgraph
-        if message.results.__root__ is not None:
-            message.results.update( Results(__root__ = {result}))
+
+        if message.results is None or message.results.__root__ is None:
+            message.results = Results(__root__ = {result})
         else:
             message.results.__root__[0].update(result)
 
