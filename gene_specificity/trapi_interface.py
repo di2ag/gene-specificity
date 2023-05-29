@@ -128,7 +128,7 @@ class TrapiInterface:
                         if subject.get_result()[2] > gene_to_tissue_thresh:
                             _subjects.append(subject)
                 else:
-                    subjects = SpecificityMeanTissue.objects.filter(tissue_curie=curie).reverse()[:threshold]
+                    subjects = SpecificityMeanTissue.objects.filter(tissue_curie=curie).reverse()
                     _subjects = []
                     for subject in subjects:
                         if subject.get_result()[2] > tissue_to_gene_thresh:
@@ -143,13 +143,13 @@ class TrapiInterface:
             logger.info('Wildcard detected')
             for curie in subject_curies:
                 if subject_category == 'biolink:Gene':
-                    objects = SpecificityMeanGene.objects.filter(gene_curie=curie).reverse()[:threshold]
+                    objects = SpecificityMeanGene.objects.filter(gene_curie=curie).reverse()
                     _objects = []
                     for object in objects:
                         if object.get_result()[2] > gene_to_tissue_thresh:
                             _objects.append(object)
                 else:
-                    objects = SpecificityMeanTissue.objects.filter(tissue_curie=curie).reverse()[:threshold]
+                    objects = SpecificityMeanTissue.objects.filter(tissue_curie=curie).reverse()
                     _objects = []
                     for object in objects:
                         if object.get_result()[2] > tissue_to_gene_thresh:
