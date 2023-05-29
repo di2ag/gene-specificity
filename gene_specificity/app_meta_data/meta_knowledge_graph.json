@@ -2,9 +2,7 @@
   "nodes": {
     "biolink:Gene": {
       "id_prefixes": [
-        "ENSEMBL",
-        "NCBIGene",
-        "HGNC"
+        "ENSEMBL"
       ]
     },
     "biolink:GrossAnatomicalStructure": {

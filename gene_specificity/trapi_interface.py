@@ -5,11 +5,10 @@ import pkgutil
 import logging
 from typing import Tuple, Union
 from django.db.models import QuerySet
-from .curie_walker import get_curie_descendant_mapping
 from reasoner_pydantic import MetaKnowledgeGraph, Message, KnowledgeGraph
 from reasoner_pydantic.kgraph import RetrievalSource, Attribute
 from reasoner_pydantic.results import NodeBinding, Result, Results
-from gene_specificity.models import SpecificityMeanGene, SpecificityMeanTissue
+from gene_specificity.models import SpecificityMeanGene, SpecificityMeanTissue, CurieTemplate, CurieTemplateMatch
 
 # Setup logging
 logging.addLevelName(25, "NOTE")
@@ -89,14 +88,29 @@ class TrapiInterface:
         else:
             message.results=rgraph
 
+    def _get_curie_descendants(qnode):
+        ids = qnode.ids
+        category = qnode.categories[0]
+        if ids is not None:
+            mapping = dict()
+            descendant_curies = set()
+            for id in ids:
+                matches = CurieTemplateMatch.objects.filter(curie_template__curie=id)
+                for match in matches:
+                    descendant_curies.add(match.curie)
+                    if id != match.curie:
+                        mapping[match.curie] = id
+            return mapping, list(descendant_curies), category
+        return dict(), None, category
+
     def get_response(self, message: Message, logger):
         print(message.to_dict())
         for edge_id, edge in message.query_graph.edges.items():
             predicate = edge.predicates[0]
             qg_subject_id = edge.subject
             qg_object_id = edge.object
-        subject_mapping, subject_curies, subject_category = get_curie_descendant_mapping(message.query_graph.nodes[qg_subject_id])
-        object_mapping, object_curies, object_category = get_curie_descendant_mapping(message.query_graph.nodes[qg_object_id])
+        subject_mapping, subject_curies, subject_category = self._get_curie_descendant_mapping(message.query_graph.nodes[qg_subject_id])
+        object_mapping, object_curies, object_category = self._get_curie_descendant_mapping(message.query_graph.nodes[qg_object_id])
         # annotation
         threshold = 10
         if subject_curies is not None and object_curies is not None:
