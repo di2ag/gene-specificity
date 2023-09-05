@@ -139,7 +139,7 @@ class TrapiInterface:
                     logger.info('Found results for {}'.format(curie))
                     object_curies = [object.get_result()[0] for object in objects]
                     vals = [object.get_result()[2] for object in objects]
-                    self._add_results(message, subject_mapping, qg_subject_id, [curie], subject_category, predicate, qg_edge_id, object_mapping, qg_object_id, object_curies, object_category, vals)
+                    self._add_results(message, node_bindings, edge_bindings, subject_mapping, qg_subject_id, [curie], subject_category, predicate, qg_edge_id, object_mapping, qg_object_id, object_curies, object_category, vals)
         else:
             logger.info('No curies detected. Returning no results')
             return message
