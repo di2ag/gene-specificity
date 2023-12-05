@@ -1,40 +1,25 @@
 from django.db.models import Model, CharField, DateTimeField, JSONField, FloatField, ForeignKey, CASCADE
 
-
-class SpecificityMeanGene(Model):
-    gene_curie = CharField(max_length=255)  # type: ignore
-    tissue_curie = CharField(max_length=255)  # type: ignore
-    specificity_mean = FloatField()  # type: ignore
-
-    def get_result(self) -> list:
-        return self.tissue_curie, "biolink:GrossAnatomicalStructure", self.specificity_mean  # type: ignore
-
-
-class SpecificityMedianGene(Model):
-    gene_curie = CharField(max_length=255)  # type: ignore
-    tissue_curie = CharField(max_length=255)  # type: ignore
-    specificity_median = FloatField()  # type: ignore
+class GeneToTissue(models.Model):
+    gene_id = models.CharField(max_length=255, db_index=True)
+    tissue_id = models.CharField(max_length=255)
+    spec = models.FloatField()
+    norm_spec = models.FloatField()
+    p_val = models.FloatField()
 
     def get_result(self) -> list:
-        return self.tissue_curie, "biolink:GrossAnatomicalStructure", self.specificity_median,  # type: ignore
+        return self.tissue_id, "biolink:GrossAnatomicalStructure", self.spec, self.norm_spec, self.p_val
 
-
-class SpecificityMeanTissue(Model):
-    tissue_curie = CharField(max_length=255)  # type: ignore
-    gene_curie = CharField(max_length=255)  # type: ignore
-    specificity_mean = FloatField()  # type: ignore
-
-    def get_result(self) -> list:
-        return self.gene_curie, "biolink:Gene", self.specificity_mean  # type: ignore
-
-
-class SpecificityMedianTissue(Model):
-    tissue_curie = CharField(max_length=255)  # type: ignore
-    gene_curie = CharField(max_length=255)  # type: ignore
-    specificity_median = FloatField()  # type: ignore
+class TissueToGene(models.Model):
+    gene_id = models.CharField(max_length=255)
+    tissue_id = models.CharField(max_length=255, db_index=True)
+    spec = models.FloatField()
+    norm_spec = models.FloatField()
+    p_val = models.FloatField()
 
     def get_result(self) -> list:
-        return self.gene_curie, "biolink:Gene" , self.specificity_median  # type: ignore
+        return self.gene_id, "biolink:Gene", self.spec, self.norm_spec, self.p_val
+
 
 class CurieTemplate(Model):
     curie = CharField(max_length=128)
