@@ -10,7 +10,7 @@ from reasoner_pydantic.utils import HashableMapping
 from reasoner_pydantic import MetaKnowledgeGraph, Message, KnowledgeGraph
 from reasoner_pydantic.kgraph import RetrievalSource, Attribute
 from reasoner_pydantic.results import NodeBinding, EdgeBinding, Result, Results, Analysis
-from gene_specificity.models import SpecificityMeanGene, SpecificityMeanTissue, CurieTemplate, CurieTemplateMatch
+from gene_specificity.models import TissueToGene, GeneToTissue, CurieTemplate, CurieTemplateMatch
 
 # Setup logging
 logging.addLevelName(25, "NOTE")

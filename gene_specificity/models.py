@@ -1,21 +1,21 @@
 from django.db.models import Model, CharField, DateTimeField, JSONField, FloatField, ForeignKey, CASCADE
 
-class GeneToTissue(models.Model):
-    gene_id = models.CharField(max_length=255, db_index=True)
-    tissue_id = models.CharField(max_length=255)
-    spec = models.FloatField()
-    norm_spec = models.FloatField()
-    p_val = models.FloatField()
+class GeneToTissue(Model):
+    gene_id = CharField(max_length=255, db_index=True)
+    tissue_id = CharField(max_length=255)
+    spec = FloatField()
+    norm_spec = FloatField()
+    p_val = FloatField()
 
     def get_result(self) -> list:
         return self.tissue_id, "biolink:GrossAnatomicalStructure", self.spec, self.norm_spec, self.p_val
 
-class TissueToGene(models.Model):
-    gene_id = models.CharField(max_length=255)
-    tissue_id = models.CharField(max_length=255, db_index=True)
-    spec = models.FloatField()
-    norm_spec = models.FloatField()
-    p_val = models.FloatField()
+class TissueToGene(Model):
+    gene_id = CharField(max_length=255)
+    tissue_id = CharField(max_length=255, db_index=True)
+    spec = FloatField()
+    norm_spec = FloatField()
+    p_val = FloatField()
 
     def get_result(self) -> list:
         return self.gene_id, "biolink:Gene", self.spec, self.norm_spec, self.p_val
@@ -36,3 +36,4 @@ class Transaction(Model):
     status = CharField(max_length=100, default="", null=True)  # type: ignore
     versions = JSONField(default=dict)
     chp_app = CharField(max_length=128, null=True)  # type: ignore
+
