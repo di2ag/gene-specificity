@@ -47,16 +47,24 @@ class TrapiInterface:
                                    resource_role="supporting_data_source")
         return {source_1, source_2}
 
-    def _get_attributes(self, val):
-        att_1 = Attribute(attribute_type_id = 'Specificity',
+    def _get_attributes(self, spec_val, norm_spec_val, p_val):
+        att_1 = Attribute(attribute_type_id = 'Specificity (Normalized)',
                           value_type_id='biolink:has_evidence',
-                          value=val,
-                          description="Specificity value between a tissue and gene indicates a gene's RNA Sequence expression specificity to that tissue. Values closer to 0 indicate no expression specificity and values closer to 5.755 or log_2(54) (54 being the number of tissues used in this analysis) indicate complete specificity.")
-        att_2 = Attribute(attribute_type_id = 'primary_knowledge_source',
+                          value=norm_spec_val,
+                          description="Specificity values for gene->tissue measure the specificity of a gene's transcription across all tissues. Specificity values for tissue->gene measure specificity of all gene's transcription in a tissue."
+        att_2 = Attribute(attribute_type_id = 'Specificity (Unnormalized)',
+                          value_type_id='biolink:has_evidence',
+                          value=spec_val,
+                          description="Specificity values for gene->tissue measure the specificity of a gene's transcription across all tissues. Specificity values for tissue->gene measure specificity of all gene's transcription in a tissue."
+        att_3 = Attribute(attribute_type_id = 'Specificity P-value',
+                          value_type_id='biolink:has_evidence',
+                          value=p_val,
+                          description="Specificity values for gene->tissue measure the specificity of a gene's transcription across all tissues. Specificity values for tissue->gene measure specificity of all gene's transcription in a tissue."
+        att_4 = Attribute(attribute_type_id = 'primary_knowledge_source',
                           value='infores:connections-hypothesis',
                           value_url='https://github.com/di2ag/gene-specificity',
                           description='The Connections Hypothesis Provider from NCATS Translator')
-        return {att_1, att_2}
+        return {att_1, att_2, att_3, att_4}
 
     def _add_results(self, message, subject_mapping, qg_subject_id, subject_curies, subject_category, predicate, qg_edge_id, object_mapping, qg_object_id, object_curies, object_category, vals):
         node_binding_group = []
@@ -69,11 +77,12 @@ class TrapiInterface:
                 nodes[subject_curie] = {"categories": [subject_category]}
                 nodes[object_curie] = {"categories": [object_category]}
                 kg_edge_id = str(uuid.uuid4())
+                spec_val, norm_spec_val, p_val = vals[val_id]
                 edges[kg_edge_id] = {"predicate": predicate,
                                      "subject": subject_curie,
                                      "object": object_curie,
                                      "sources": self._get_sources(),
-                                     "attributes": self._get_attributes(vals[val_id])}
+                                     "attributes": self._get_attributes(spec_val, norm_spec_val, p_val)}
                 val_id += 1
 
                 node_bindings = {qg_subject_id: set(), qg_object_id: set()}
@@ -130,14 +139,24 @@ class TrapiInterface:
             logger.info('Wildcard detected')
             for curie in object_curies:
                 if object_category == 'biolink:Gene':
-                    subjects = SpecificityMeanGene.objects.filter(gene_curie=curie).reverse()[0:10]
+                    subjects = GeneToTissue.objects.filter(gene_id=curie)
+                    #subjects = SpecificityMeanGene.objects.filter(gene_curie=curie).reverse()[0:10]
                 else:
-                    subjects = SpecificityMeanTissue.objects.filter(tissue_curie=curie).reverse()[0:30]
+                    subjects = TissueToGene.objects.filter(tissue_id=curie)
+                    #subjects = SpecificityMeanTissue.objects.filter(tissue_curie=curie).reverse()[0:30]
                 if len(subjects) > 0:
                     logger.info('Found results for {}'.format(curie))
-                    subject_curies = [subject.get_result()[0] for subject in subjects]
-                    vals = [subject.get_result()[2] for subject in subjects]
-                    node_binding_group, edge_binding_group = self._add_results(message, subject_mapping, qg_subject_id, subject_curies, subject_category, predicate, qg_edge_id, object_mapping, qg_object_id, [curie], object_category, vals)
+                    subject_curies = []
+                    spec_vals = []
+                    norm_spec_vals = []
+                    p_vals = []
+                    for subject in subjects:
+                        subject_curie, spec_val, norm_spec_val, p_val = subject.get_result()
+                        subject_curies.append(subject_curie)
+                        spec_vals.append(spec_val)
+                        norm_spec_vals.append(norm_spec_val)
+                        p_vals.append(p_val)
+                    node_binding_group, edge_binding_group = self._add_results(message, subject_mapping, qg_subject_id, subject_curies, subject_category, predicate, qg_edge_id, object_mapping, qg_object_id, [curie], object_category, zip(spec_Vals, norm_spec_vals, p_vals))
                     node_bindings.extend(node_binding_group)
                     edge_bindings.extend(edge_binding_group)
         elif subject_curies is not None:
@@ -149,9 +168,17 @@ class TrapiInterface:
                     objects = SpecificityMeanTissue.objects.filter(tissue_curie=curie).reverse()[0:30]
                 if len(objects) > 0:
                     logger.info('Found results for {}'.format(curie))
-                    object_curies = [object.get_result()[0] for object in objects]
-                    vals = [object.get_result()[2] for object in objects]
-                    node_binding_group, edge_binding_group = self._add_results(message, subject_mapping, qg_subject_id, [curie], subject_category, predicate, qg_edge_id, object_mapping, qg_object_id, object_curies, object_category, vals)
+                    object_curies = []
+                    spec_vals = []
+                    norm_spec_vals = []
+                    p_vals = []
+                    for object in objects:
+                        object_curie, spec_val, norm_spec_val, p_val = object.get_result()
+                        object_curies.append(object_curie)
+                        spec_vals.append(spec_val)
+                        norm_spec_vals.append(norm_spec_val)
+                        p_vals.append(p_val)
+                    node_binding_group, edge_binding_group = self._add_results(message, subject_mapping, qg_subject_id, [curie], subject_category, predicate, qg_edge_id, object_mapping, qg_object_id, object_curies, object_category, zip(spec_vals, norm_spec_vals, p_vals))
                     node_bindings.extend(node_binding_group)
                     edge_bindings.extend(edge_binding_group)
         else:

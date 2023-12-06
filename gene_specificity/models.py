@@ -8,17 +8,17 @@ class GeneToTissue(Model):
     p_val = FloatField()
 
     def get_result(self) -> list:
-        return self.tissue_id, "biolink:GrossAnatomicalStructure", self.spec, self.norm_spec, self.p_val
+        return self.tissue_id, self.spec, self.norm_spec, self.p_val
 
 class TissueToGene(Model):
-    gene_id = CharField(max_length=255)
     tissue_id = CharField(max_length=255, db_index=True)
+    gene_id = CharField(max_length=255)
     spec = FloatField()
     norm_spec = FloatField()
     p_val = FloatField()
 
     def get_result(self) -> list:
-        return self.gene_id, "biolink:Gene", self.spec, self.norm_spec, self.p_val
+        return self.gene_id, self.spec, self.norm_spec, self.p_val
 
 
 class CurieTemplate(Model):
