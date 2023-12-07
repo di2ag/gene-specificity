@@ -51,15 +51,15 @@ class TrapiInterface:
         att_1 = Attribute(attribute_type_id = 'Specificity (Normalized)',
                           value_type_id='biolink:has_evidence',
                           value=norm_spec_val,
-                          description="Specificity values for gene->tissue measure the specificity of a gene's transcription across all tissues. Specificity values for tissue->gene measure specificity of all gene's transcription in a tissue."
+                          description="Specificity values for gene->tissue measure the specificity of a gene's transcription across all tissues. Specificity values for tissue->gene measure specificity of all gene's transcription in a tissue.")
         att_2 = Attribute(attribute_type_id = 'Specificity (Unnormalized)',
                           value_type_id='biolink:has_evidence',
                           value=spec_val,
-                          description="Specificity values for gene->tissue measure the specificity of a gene's transcription across all tissues. Specificity values for tissue->gene measure specificity of all gene's transcription in a tissue."
+                          description="Specificity values for gene->tissue measure the specificity of a gene's transcription across all tissues. Specificity values for tissue->gene measure specificity of all gene's transcription in a tissue.")
         att_3 = Attribute(attribute_type_id = 'Specificity P-value',
                           value_type_id='biolink:has_evidence',
                           value=p_val,
-                          description="Specificity values for gene->tissue measure the specificity of a gene's transcription across all tissues. Specificity values for tissue->gene measure specificity of all gene's transcription in a tissue."
+                          description="P-val assessing significance of unnormalized Specificity value.")
         att_4 = Attribute(attribute_type_id = 'primary_knowledge_source',
                           value='infores:connections-hypothesis',
                           value_url='https://github.com/di2ag/gene-specificity',
