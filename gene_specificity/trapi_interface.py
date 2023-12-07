@@ -165,9 +165,11 @@ class TrapiInterface:
             logger.info('Wildcard detected')
             for curie in subject_curies:
                 if subject_category == 'biolink:Gene':
-                    objects = SpecificityMeanGene.objects.filter(gene_curie=curie).reverse()[0:10]
+                    objects = GeneToTissue.objects.filter(gene_id=curie)
+                    #objects = SpecificityMeanGene.objects.filter(gene_curie=curie).reverse()[0:10]
                 else:
-                    objects = SpecificityMeanTissue.objects.filter(tissue_curie=curie).reverse()[0:30]
+                    objects = TissueToGene.objects.filter(tissue_id=curie)
+                    #objects = SpecificityMeanTissue.objects.filter(tissue_curie=curie).reverse()[0:30]
                 if len(objects) > 0:
                     logger.info('Found results for {}'.format(curie))
                     object_curies = []
