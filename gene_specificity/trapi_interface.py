@@ -66,7 +66,7 @@ class TrapiInterface:
                           description='The Connections Hypothesis Provider from NCATS Translator')
         return {att_1, att_2, att_3, att_4}
 
-    def _add_results(self, message, subject_mapping, qg_subject_id, subject_curies, subject_category, predicate, qg_edge_id, object_mapping, qg_object_id, object_curies, object_category, vals):
+    def _add_results(self, message, subject_mapping, qg_subject_id, subject_curies, subject_category, predicate, qg_edge_id, object_mapping, qg_object_id, object_curies, object_category, spec_vals, norm_spec_vals, p_vals):
         node_binding_group = []
         edge_binding_group = []
         nodes = dict()
@@ -77,7 +77,9 @@ class TrapiInterface:
                 nodes[subject_curie] = {"categories": [subject_category]}
                 nodes[object_curie] = {"categories": [object_category]}
                 kg_edge_id = str(uuid.uuid4())
-                spec_val, norm_spec_val, p_val = vals[val_id]
+                spec_val = spec_vals[val_id]
+                norm_spec_val = norm_spec_vals[val_id]
+                p_val = p_vals[val_id]
                 edges[kg_edge_id] = {"predicate": predicate,
                                      "subject": subject_curie,
                                      "object": object_curie,
@@ -156,7 +158,7 @@ class TrapiInterface:
                         spec_vals.append(spec_val)
                         norm_spec_vals.append(norm_spec_val)
                         p_vals.append(p_val)
-                    node_binding_group, edge_binding_group = self._add_results(message, subject_mapping, qg_subject_id, subject_curies, subject_category, predicate, qg_edge_id, object_mapping, qg_object_id, [curie], object_category, zip(spec_vals, norm_spec_vals, p_vals))
+                    node_binding_group, edge_binding_group = self._add_results(message, subject_mapping, qg_subject_id, subject_curies, subject_category, predicate, qg_edge_id, object_mapping, qg_object_id, [curie], object_category, spec_vals, norm_spec_vals, p_vals)
                     node_bindings.extend(node_binding_group)
                     edge_bindings.extend(edge_binding_group)
         elif subject_curies is not None:
@@ -178,7 +180,7 @@ class TrapiInterface:
                         spec_vals.append(spec_val)
                         norm_spec_vals.append(norm_spec_val)
                         p_vals.append(p_val)
-                    node_binding_group, edge_binding_group = self._add_results(message, subject_mapping, qg_subject_id, [curie], subject_category, predicate, qg_edge_id, object_mapping, qg_object_id, object_curies, object_category, zip(spec_vals, norm_spec_vals, p_vals))
+                    node_binding_group, edge_binding_group = self._add_results(message, subject_mapping, qg_subject_id, [curie], subject_category, predicate, qg_edge_id, object_mapping, qg_object_id, object_curies, object_category, spec_vals, norm_spec_vals, p_vals)
                     node_bindings.extend(node_binding_group)
                     edge_bindings.extend(edge_binding_group)
         else:
