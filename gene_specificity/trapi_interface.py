@@ -90,14 +90,14 @@ class TrapiInterface:
                 node_bindings = {qg_subject_id: set(), qg_object_id: set()}
                 edge_bindings = {qg_edge_id : set()}
                 if subject_curie in subject_mapping:
-                    node_bindings[qg_subject_id].add(NodeBinding(id = subject_curie, query_id = subject_mapping[subject_curie]))
+                    node_bindings[qg_subject_id].add(NodeBinding(id = subject_curie, attributes=[], query_id = subject_mapping[subject_curie]))
                 else:
-                    node_bindings[qg_subject_id].add(NodeBinding(id = subject_curie))
+                    node_bindings[qg_subject_id].add(NodeBinding(id = subject_curie, attributes=[]))
                 if object_curie in object_mapping:
-                    node_bindings[qg_object_id].add(NodeBinding(id = object_curie, query_id = object_mapping[object_curie]))
+                    node_bindings[qg_object_id].add(NodeBinding(id = object_curie, attributes=[], query_id = object_mapping[object_curie]))
                 else:
-                    node_bindings[qg_object_id].add(NodeBinding(id = object_curie))
-                edge_bindings[qg_edge_id].add(EdgeBinding(id = kg_edge_id))
+                    node_bindings[qg_object_id].add(NodeBinding(id = object_curie, attributes=[]))
+                edge_bindings[qg_edge_id].add(EdgeBinding(id = kg_edge_id, attributes=[]))
                 node_binding_group.append(node_bindings)
                 edge_binding_group.append(edge_bindings)
         kgraph = KnowledgeGraph(nodes=nodes, edges=edges)
