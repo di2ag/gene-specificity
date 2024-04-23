@@ -45,17 +45,17 @@ class TrapiInterface:
                                    resource_role="primary_knowledge_source")
         source_2 = RetrievalSource(resource_id = "infores:gtex",
                                    resource_role="supporting_data_source")
-        return {source_1, source_2}
+        return [source_1, source_2]
 
     def _get_attributes(self, spec_val, norm_spec_val, p_val):
         att_1 = Attribute(attribute_type_id = 'Specificity (Normalized)',
                           value_type_id='biolink:has_evidence',
                           value=norm_spec_val,
-                          description="Specificity values for gene->tissue measure the specificity of a gene's transcription across all tissues. Specificity values for tissue->gene measure specificity of all gene's transcription in a tissue.")
+                          description="Specificity values for gene-tissue edges measure the specificity of a gene's transcription across all tissues included in https://www.gtexportal.org/home/samplingSitePage. Values are normalized between range [0,1].")
         att_2 = Attribute(attribute_type_id = 'Specificity (Unnormalized)',
                           value_type_id='biolink:has_evidence',
                           value=spec_val,
-                          description="Specificity values for gene->tissue measure the specificity of a gene's transcription across all tissues. Specificity values for tissue->gene measure specificity of all gene's transcription in a tissue.")
+                          description="Specificity values for gene-tissue edges measure the specificity of a gene's transcription across all tissues included in https://www.gtexportal.org/home/samplingSitePage. Values are unnormalized between range [0, 5.5].")
         att_3 = Attribute(attribute_type_id = 'Specificity P-value',
                           value_type_id='biolink:has_evidence',
                           value=p_val,
@@ -64,7 +64,7 @@ class TrapiInterface:
                           value='infores:connections-hypothesis',
                           value_url='https://github.com/di2ag/gene-specificity',
                           description='The Connections Hypothesis Provider from NCATS Translator')
-        return {att_1, att_2, att_3, att_4}
+        return [att_1, att_2, att_3, att_4]
 
     def _add_results(self, message, subject_mapping, qg_subject_id, subject_curies, subject_category, predicate, qg_edge_id, object_mapping, qg_object_id, object_curies, object_category, spec_vals, norm_spec_vals, p_vals):
         node_binding_group = []
@@ -74,8 +74,8 @@ class TrapiInterface:
         val_id = 0
         for subject_curie in subject_curies:
             for object_curie in object_curies:
-                nodes[subject_curie] = {"categories": [subject_category]}
-                nodes[object_curie] = {"categories": [object_category]}
+                nodes[subject_curie] = {"categories": [subject_category], attributes=[]}
+                nodes[object_curie] = {"categories": [object_category], attributes=[]}
                 kg_edge_id = str(uuid.uuid4())
                 spec_val = spec_vals[val_id]
                 norm_spec_val = norm_spec_vals[val_id]
@@ -190,7 +190,7 @@ class TrapiInterface:
             return message
         results = Results(__root__ = parse_obj_as(HashableMapping, {}))
         for node_binding_dict, edge_binding_dict in zip(node_bindings, edge_bindings):
-            analysis = Analysis(resource_id='infores:connections-hypothesis', edge_bindings = edge_binding_dict)
+            analysis = Analysis(resource_id='infores:connections-hypothesis', edge_bindings = edge_binding_dict, attributes=[])
             result = Result(node_bindings = node_binding_dict, analyses=[analysis])
             results.add(result)
         message.results = results
