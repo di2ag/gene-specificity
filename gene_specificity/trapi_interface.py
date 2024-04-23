@@ -74,8 +74,8 @@ class TrapiInterface:
         val_id = 0
         for subject_curie in subject_curies:
             for object_curie in object_curies:
-                nodes[subject_curie] = {"categories": [subject_category], attributes:[]}
-                nodes[object_curie] = {"categories": [object_category], attributes:[]}
+                nodes[subject_curie] = {"categories": [subject_category], "attributes":[]}
+                nodes[object_curie] = {"categories": [object_category], "attributes":[]}
                 kg_edge_id = str(uuid.uuid4())
                 spec_val = spec_vals[val_id]
                 norm_spec_val = norm_spec_vals[val_id]
