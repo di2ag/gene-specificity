@@ -60,10 +60,8 @@ class TrapiInterface:
                           value_type_id='biolink:has_evidence',
                           value=p_val,
                           description="P-val assessing significance of unnormalized Specificity value.")
-        att_4 = Attribute(attribute_type_id = 'primary_knowledge_source',
-                          value='infores:connections-hypothesis',
-                          value_url='https://github.com/di2ag/gene-specificity',
-                          description='The Connections Hypothesis Provider from NCATS Translator')
+        att_4 = Attribute(attribute_type_id = 'knowledge_level',
+                          value='statistical_association')
         return [att_1, att_2, att_3, att_4]
 
     def _add_results(self, message, subject_mapping, qg_subject_id, subject_curies, subject_category, predicate, qg_edge_id, object_mapping, qg_object_id, object_curies, object_category, spec_vals, norm_spec_vals, p_vals):
