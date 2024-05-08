@@ -21,7 +21,7 @@ logging.Logger.note = note
 internal_logger = logging.getLogger(__name__)
 
 class TrapiInterface:
-    def __init__(self, trapi_version: str = '1.4'):
+    def __init__(self, trapi_version: str = '1.5'):
         self.trapi_version = trapi_version
 
     def get_meta_knowledge_graph(self) -> MetaKnowledgeGraph:
