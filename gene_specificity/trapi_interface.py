@@ -64,7 +64,7 @@ class TrapiInterface:
                           value='statistical_association')
         att_5 = Attribute(attribute_type_id = 'agent_type',
                           value='computational_model')
-        return [att_1, att_2, att_3, att_4]
+        return [att_1, att_2, att_3, att_4, att_5]
 
     def _add_results(self, message, subject_mapping, qg_subject_id, subject_curies, subject_category, predicate, qg_edge_id, object_mapping, qg_object_id, object_curies, object_category, spec_vals, norm_spec_vals, p_vals):
         node_binding_group = []
