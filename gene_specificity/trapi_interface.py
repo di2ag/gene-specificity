@@ -150,12 +150,12 @@ class TrapiInterface:
                     p_vals = []
                     for _object in objects:
                         object_curie, spec_val, norm_spec_Val, p_val = _object.get_result()
-                        if object_curie in given_object_curies:
+                        if object_curie in given_object_curies_set:
                             _object_curies.append(object_curie)
                             spec_vals.append(spec_val)
                             norm_spec_vals.append(norm_spec_val)
                             p_vals.append(p_val)
-                    node_binding_group, edge_binding_group = self._add_results(message, subject_mapping, qg_subject_id, [curie], subject_category, predicate, qg_edge_id, object_mapping, qg_object_id, _object_curiesobject_category, spec_vals, norm_spec_vals, p_vals)
+                    node_binding_group, edge_binding_group = self._add_results(message, subject_mapping, qg_subject_id, [curie], subject_category, predicate, qg_edge_id, object_mapping, qg_object_id, _object_curies, object_category, spec_vals, norm_spec_vals, p_vals)
                     node_bindings.extend(node_binding_group)
                     edge_bindings.extend(edge_binding_group)
             #return message
