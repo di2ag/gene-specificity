@@ -148,8 +148,8 @@ class TrapiInterface:
                         p_vals = []
                         for tissue_object in tissue_objects:
                             tissue_object_curie, spec_val, norm_spec_val, p_val = tissue_object.get_result()
-                            if object_curie in given_object_curies_set:
-                                tissue_object_curies.append(object_curie)
+                            if tissue_object_curie in given_object_curies_set:
+                                tissue_object_curies.append(tissue_object_curie)
                                 spec_vals.append(spec_val)
                                 norm_spec_vals.append(norm_spec_val)
                                 p_vals.append(p_val)
