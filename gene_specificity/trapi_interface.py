@@ -149,7 +149,7 @@ class TrapiInterface:
                     norm_spec_vals = []
                     p_vals = []
                     for _object in objects:
-                        object_curie, spec_val, norm_spec_Val, p_val = _object.get_result()
+                        object_curie, spec_val, norm_spec_val, p_val = _object.get_result()
                         if object_curie in given_object_curies_set:
                             _object_curies.append(object_curie)
                             spec_vals.append(spec_val)
