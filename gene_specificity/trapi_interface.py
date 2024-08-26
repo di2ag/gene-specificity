@@ -139,26 +139,10 @@ class TrapiInterface:
             for curie in subject_curies:
                 if subject_category == 'biolink:Gene':
                     objects = GeneToTissue.objects.filter(gene_id=curie)
-                    #tissue_objects = GeneToTissue.objects.filter(gene_id=curie)
-                    #if len(tissue_objects) > 0:
-                    #    logger.info('Found results for {}'.format(curie))
-                    #    given_object_curies_set = set(object_curies)
-                    #    tissue_object_curies = []
-                    #    spec_vals = []
-                    #    norm_spec_vals = []
-                    #    p_vals = []
-                    #    for tissue_object in tissue_objects:
-                    #        tissue_object_curie, spec_val, norm_spec_val, p_val = tissue_object.get_result()
-                    #        if tissue_object_curie in given_object_curies_set:
-                    #            tissue_object_curies.append(tissue_object_curie)
-                    #            spec_vals.append(spec_val)
-                    #            norm_spec_vals.append(norm_spec_val)
-                    #            p_vals.append(p_val)
-                    #    node_binding_group, edge_binding_group = self._add_results(message, subject_mapping, qg_subject_id, [curie], subject_category, predicate, qg_edge_id, object_mapping, qg_object_id, tissue_object_curies, object_category, spec_vals, norm_spec_vals, p_vals)
-                    #    node_bindings.extend(node_binding_group)
-                    #    edge_bindings.extend(edge_binding_group)
                 else:
                     objects = TissueToGene.objects.filter(tissue_id=curie)
+                print(curie)
+                print(objects)
                 if len(objects) > 0:
                     logger.info('Found results for {}'.format(curie))
                     given_object_curies_set = set(object_curies)
