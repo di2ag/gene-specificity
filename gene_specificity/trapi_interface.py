@@ -141,8 +141,6 @@ class TrapiInterface:
                     objects = GeneToTissue.objects.filter(gene_id=curie)
                 else:
                     objects = TissueToGene.objects.filter(tissue_id=curie)
-                logger.info(''.format(curie))
-                logger.info(''.format(objects))
                 if len(objects) > 0:
                     logger.info('Found results for {}'.format(curie))
                     given_object_curies_set = set(object_curies)
@@ -150,7 +148,7 @@ class TrapiInterface:
                     spec_vals = []
                     norm_spec_vals = []
                     p_vals = []
-                    for _object in objects
+                    for _object in objects:
                         object_curie, spec_val, norm_spec_Val, p_val = _object.get_result()
                         if object_curie in given_object_curies:
                             _object_curies.append(object_curie)
