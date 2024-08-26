@@ -141,8 +141,8 @@ class TrapiInterface:
                     objects = GeneToTissue.objects.filter(gene_id=curie)
                 else:
                     objects = TissueToGene.objects.filter(tissue_id=curie)
-                print(curie)
-                print(objects)
+                logger.info(''.format(curie))
+                logger.info(''.format(objects))
                 if len(objects) > 0:
                     logger.info('Found results for {}'.format(curie))
                     given_object_curies_set = set(object_curies)
